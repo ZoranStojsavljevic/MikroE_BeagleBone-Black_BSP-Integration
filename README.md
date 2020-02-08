@@ -116,10 +116,10 @@ To build the kernel, the following should be done:
 Make proper .config:
 
 	Fedora:
-	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8 ????????????????
+	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8 omap2plus_defconfig
 
 	Debian:
-	ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make -j8 ????????????????
+	ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make -j8 omap2plus_defconfig
 
 Compile the kernel itself:
 
@@ -133,9 +133,9 @@ The kernel itself to be used is in the directory: .../linux-5.5.1/arch/arm/boot/
 
 	.../linux-5.5.1/arch/arm/boot/zImage
 
-The .dtb file to be used is in the directory: .../linux-5.5.1/arch/arm/boot/dts/ and it is called ????????.dtb
+The .dtb file to be used is in the directory: .../linux-5.5.1/arch/arm/boot/dts/ and it is called am335x-boneblack.dtb
 
-	.../linux-5.5.1/arch/arm/boot/dts/imx6q-sabreauto.dtb
+	.../linux-5.5.1/arch/arm/boot/dts/am335x-boneblack.dtb
 
 The location on SD card both components should be placed is /dev/sdX1 mounted to some directory (example: /tmp/sdX1 (where the SD card itself is: /dev/sdX).
 
@@ -145,9 +145,11 @@ Assuming X=b, it looks like:
 
 The following will happed after booting u-boot, and after booting kernel 5.5.1 from the SD card (initial boot @ [  0.000000]):
 
-    Starting kernel ...
+	Starting kernel ...
 
 	[    0.000000] Booting Linux on physical CPU 0x0
 	[ snap ]
 
-## Making rootfs (using latest up to date YOCTO ??? distribution):
+## Making rootfs (using latest up to date BuildRoot distribution):
+
+https://bootlin.com/doc/training/buildroot/buildroot-labs.pdf
