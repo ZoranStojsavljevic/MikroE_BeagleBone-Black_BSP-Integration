@@ -98,7 +98,7 @@ Given example where /dev/sdX is /dev/sdb :
     echo "Formatting primary partition sdb2 for rootfs"
     mkfs.ext4 -F /dev/sdb2
 
-## Making kernel using kernel.org vanilla (the latest stable upon writing this document) kernel 5.5.1
+## Making kernel using kernel.org vanilla (the latest stable upon writing this document) kernel 5.5.2
 
 The kernel 5.5.2 source code is located @ the following location:
 
