@@ -11,9 +11,9 @@ element14 BeagleBone Black INDUSTRIAL System Reference Manual
 
 http://download.kamami.pl/p562276-BBBI_SRM_Rev%201.0%20VL.pdf
 
-## Get u-boot
+## Get U-Boot
 
-The latest u-boot version might not work out of the box.
+The latest U-Boot version might not work out of the box.
 
 	git clone http://git.denx.de/u-boot.git u-boot-bbb OR
 	git clone git://git.denx.de/u-boot.git u-boot-bbb
@@ -24,47 +24,47 @@ The cloned version will match HEAD set to master branch (the following command i
 	git checkout -b <branch-name> # Take the current HEAD (the commit checked
 	# out) and create a new branch called <branch-name>
 
-## Installing arm cross compiler on the host (the host used is Fedora 31 distro)
-
-To install on Fedora 31 gcc-arm-linux-gnu.x86_64 (which is not native x86_64 compiler), the following command is used:
-
-	sudo dnf install gcc-arm-linux-gnu.x86_64
+## Installing arm cross compiler on the host (the hosts used are Debian Buster and Fedora 31 distros)
 
 To install on Debian Buster, the following command is used:
 
 	sudo apt-get install gcc-arm-linux-gnueabihf
 
-## u-boot Build
+To install on Fedora 31 gcc-arm-linux-gnu.x86_64 (which is not native x86_64 compiler), the following command is used:
 
-Build u-boot using an ARM cross compiler, e.g. Fedora 31 gcc-arm-linux-gnu.x86_64:
+	sudo dnf install gcc-arm-linux-gnu.x86_64
+
+## U-Boot Build
+
+Build U-Boot using an ARM cross compiler, Debian Buster and Fedora 31:
 
 To make .config file, the following command is required:
-
-	Fedora:
-	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8 am335x-evm_defconfig
 
 	Debian:
 	ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make -j8 am335x-evm_defconfig
 
-## Actual u-boot compilation:
-
 	Fedora:
-	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8
+	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8 am335x-evm_defconfig
+
+## Actual U-Boot compilation:
 
 	Debian:
 	ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make -j8
 
-## Actual u-boot compilation for the expert developers (part of porting effort) with no valid .dts tree present
-
 	Fedora:
-	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8 EXT_DTB=<path/to/your/custom/built/dtb>
+	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8
+
+## Actual u-boot compilation for the expert developers (part of porting effort) with no valid .dts tree present
 
 	Debian:
 	ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make -j8 EXT_DTB=<path/to/your/custom/built/dtb>
 
+	Fedora:
+	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8 EXT_DTB=<path/to/your/custom/built/dtb>
+
 ## Place MLO and u-boot.img on SD card
 
-For the BBB board case, two files are generated: MLO and u-boot.img.
+For the BBB board case, two files are generated: MLO and u-boot.img .
 
 In order to flash the SD card!
 
@@ -100,55 +100,48 @@ Given example where /dev/sdX is /dev/sdb :
 
 ## Making kernel using kernel.org vanilla (the latest stable upon writing this document) kernel 5.5.1
 
-The kernel 5.5.1 source code is located @ the following location:
+The kernel 5.5.2 source code is located @ the following location:
 
 https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/
 
-The file to be downloaded is the following: linux-5.5.1.tar.xz
+The file to be downloaded is the following: linux-5.5.2.tar.xz
 
 The command to unpack the designated kernel is:
 
-	tar -xvf inux-5.5.1.tar.xz
-	cd linux-5.5.1/
+	tar -xvf linux-5.5.2.tar.xz
+	cd linux-5.5.2/
 
 To build the kernel, the following should be done:
 
 Make proper .config:
 
-	Fedora:
-	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8 omap2plus_defconfig
-
 	Debian:
 	ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make -j8 omap2plus_defconfig
 
-Compile the kernel itself:
-
 	Fedora:
-	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8
+	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8 omap2plus_defconfig
+
+Compile the kernel itself:
 
 	Debian:
 	ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make -j8
 
-The kernel itself to be used is in the directory: .../linux-5.5.1/arch/arm/boot/ and it is called zImage:
+	Fedora:
+	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8
 
-	.../linux-5.5.1/arch/arm/boot/zImage
+The kernel itself to be used is in the directory: .../linux-5.5.2/arch/arm/boot/ and it is called zImage:
 
-The .dtb file to be used is in the directory: .../linux-5.5.1/arch/arm/boot/dts/ and it is called am335x-boneblack.dtb
+	.../linux-5.5.2/arch/arm/boot/zImage
 
-	.../linux-5.5.1/arch/arm/boot/dts/am335x-boneblack.dtb
+The .dtb file to be used is in the directory: .../linux-5.5.2/arch/arm/boot/dts/ and it is called am335x-boneblack.dtb
+
+	.../linux-5.5.2/arch/arm/boot/dts/am335x-boneblack.dtb
 
 The location on SD card both components should be placed is /dev/sdX1 mounted to some directory (example: /tmp/sdX1 (where the SD card itself is: /dev/sdX).
 
 Assuming X=b, it looks like:
 
 	mount /dev/sdb1 /tmp/sdb1
-
-The following will happed after booting u-boot, and after booting kernel 5.5.1 from the SD card (initial boot @ [  0.000000]):
-
-	Starting kernel ...
-
-	[    0.000000] Booting Linux on physical CPU 0x0
-	[ snap ]
 
 ## Making rootfs (using latest up to date BuildRoot distribution):
 
