@@ -17,9 +17,8 @@ Buildroot user manual:
 ### Buildroot Setup (by the time of writing the latest buildroot tag used)
 
 	git clone git://git.buildroot.net/git/buildroot.git
-	git branch buildroot-2019.11.1
-	git checkout buildroot-2019.11.1
-	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8 beaglebone_defconfig
+	git branch buildroot-2020.02
+	git checkout buildroot-2020.02
 
 ### Kernels used with Buildroot
 
@@ -33,6 +32,36 @@ Civil Infrastructure Projects Real Time (CIP RT) kernels used from:
 	https://git.kernel.org/pub
 	https://git.kernel.org/pub/scm/linux/kernel/git/cip/linux-cip.git
 	https://git.kernel.org/pub/scm/linux/kernel/git/cip/linux-cip.git/snapshot/linux-cip-4.19.98-cip19-rt7.tar.gz
+
+### Buildroot Build
+
+Build Buildrool using an ARM cross compiler, Debian Buster and Fedora 31:
+
+To make .config file, the following command is required:
+
+	Debian:
+	ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make -j8 beaglebone_defconfig
+
+	Fedora:
+	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8 beaglebone_defconfig
+
+### Buildroot customization
+
+To customize .config file, the following command is required:
+
+	Debian:
+	ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make -j8 menuconfig
+
+	Fedora:
+	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8 menuconfig
+
+### Actual Buildroot compilation
+
+	Debian:
+	ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make -j8
+
+	Fedora:
+	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8
 
 ### The practical Buildroot configuration (from .config, but also other sources)
 
@@ -120,7 +149,7 @@ Civil Infrastructure Projects Real Time (CIP RT) kernels used from:
 	BR2_LINUX_KERNEL_CUSTOM_LOGO_PATH=""
 	BR2_LINUX_KERNEL_ZIMAGE=y
 	BR2_LINUX_KERNEL_GZIP=y
-	R2_LINUX_KERNEL_DTS_SUPPORT=y
+	BR2_LINUX_KERNEL_DTS_SUPPORT=y
 	BR2_LINUX_KERNEL_INTREE_DTS_NAME="am335x-evm am335x-bone am335x-boneblack am335x-bonegreen am335x-boneblue"
 	BR2_LINUX_KERNEL_CUSTOM_DTS_PATH=""
 	BR2_LINUX_KERNEL_NEEDS_HOST_OPENSSL=y
