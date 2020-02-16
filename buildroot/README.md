@@ -153,3 +153,27 @@ To customize .config file, the following command is required:
 	BR2_LINUX_KERNEL_INTREE_DTS_NAME="am335x-evm am335x-bone am335x-boneblack am335x-bonegreen am335x-boneblue"
 	BR2_LINUX_KERNEL_CUSTOM_DTS_PATH=""
 	BR2_LINUX_KERNEL_NEEDS_HOST_OPENSSL=y
+
+### The Buildroot output directory (where the results are stored)
+
+	.../buildroot/output/images
+	[.../buildroot/output/images]$ ls -al
+	total 158972
+	drwxr-xr-x. 2 vuser vboxusers     4096 Feb 11 10:57 .
+	drwxr-xr-x. 6 vuser vboxusers     4096 Feb 11 10:57 ..
+	-rw-r--r--. 1 vuser vboxusers    58300 Feb 11 10:57 am335x-boneblack.dtb
+	-rw-r--r--. 1 vuser vboxusers    57898 Feb 11 10:57 am335x-boneblue.dtb
+	-rw-r--r--. 1 vuser vboxusers    56484 Feb 11 10:57 am335x-bone.dtb
+	-rw-r--r--. 1 vuser vboxusers    56740 Feb 11 10:57 am335x-bonegreen.dtb
+	-rw-r--r--. 1 vuser vboxusers    63027 Feb 11 10:57 am335x-evm.dtb
+	-rw-r--r--. 1 vuser vboxusers    61679 Feb 11 10:57 am335x-evmsk.dtb
+	-rw-r--r--. 1 vuser vboxusers 16777216 Feb 11 10:57 boot.vfat
+	-rw-r--r--. 1 vuser vboxusers   107356 Feb 11 10:39 MLO
+	-rw-r--r--. 1 vuser vboxusers 62914560 Feb 11 10:57 rootfs.ext2
+	lrwxrwxrwx. 1 vuser vboxusers       11 Feb 11 10:57 rootfs.ext4 -> rootfs.ext2
+	-rw-r--r--. 1 vuser vboxusers 46551040 Feb 11 10:57 rootfs.tar
+	-rw-r--r--. 1 vuser vboxusers 79692288 Feb 11 10:57 sdcard.img
+	-rw-r--r--. 1 vuser vboxusers   761880 Feb 11 10:39 u-boot.img
+	-rw-r--r--. 1 vuser vboxusers      434 Feb 11 10:57 uEnv.txt
+	-rw-r--r--. 1 vuser vboxusers  5712936 Feb 11 10:57 zImage
+	[.../buildroot/output/images]$
