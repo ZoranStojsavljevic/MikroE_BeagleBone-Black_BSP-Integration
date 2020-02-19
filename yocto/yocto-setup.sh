@@ -52,17 +52,17 @@ set_build_env() {
 	bitbake-layers add-layer ../../meta-jumpnow/
 	bitbake-layers add-layer ../../meta-bbb/
 	bitbake-layers add-layer ../../meta-openembedded/meta-oe/
-        bitbake-layers add-layer ../../meta-openembedded/meta-python/
+	bitbake-layers add-layer ../../meta-openembedded/meta-python/
 	bitbake-layers add-layer ../../meta-openembedded/meta-networking/
 	bitbake-layers add-layer ../../meta-qt5
-        bitbake-layers show-layers
+	bitbake-layers show-layers
 	cd ../..
 	mv poky/build/ .
 }
 
 if [ $# -ne 1 ] ; then
-    echo "Usage: $0 <YOCTO Release Name (starting from sumo release)>"
-    exit 1
+	echo "Usage: $0 <YOCTO Release Name (starting from sumo release)>"
+	exit 1
 fi
 
 ReleaseName=$1
@@ -70,17 +70,17 @@ ReleaseName=$1
 names="zeus"
 for name in $names
 do
-    if [ "$ReleaseName" == $name ]; then
-	echo "Supported YOCTO Release Name entered $name!"
-	rm -rf build/
-	## checkout_release
-	cd poky/
-	set_build_env
-	cp bbb-releases/bbb-$name/local.conf build/conf/local.conf
-	echo "The system is ready for making the YOCTO images!"
-	echo `pwd`
-	exit 0
-    fi
+	if [ "$ReleaseName" == $name ]; then
+		echo "Supported YOCTO Release Name entered $name!"
+		rm -rf build/
+		checkout_release
+		cd poky/
+		set_build_env
+		cp bbb-releases/bbb-$name/local.conf build/conf/local.conf
+		echo "The system is ready for making the YOCTO images!"
+		echo `pwd`
+		exit 0
+	fi
 done
 
 echo "Non supported YOCTO Release Name entered $ReleaseName!"
