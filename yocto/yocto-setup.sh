@@ -7,9 +7,6 @@
 # warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the MIT Public License for more details.
 
 checkout_release () {
-	CURRENT_DIR=`pwd`
-	echo $CURRENT_DIR
-
 	## meta-bbb
 	git clone https://github.com/jumpnow/meta-bbb.git
 	cd meta-bbb
@@ -45,15 +42,18 @@ checkout_release () {
 }
 
 set_build_env() {
-	unset CURRENT_DIR
-	CURRENT_DIR=`pwd`
-
 	source oe-init-build-env build/ > /dev/null 2>&1
+	echo "Adding layer meta-jumpnow"
 	bitbake-layers add-layer ../../meta-jumpnow/
+	echo "Adding layer meta-bbb"
 	bitbake-layers add-layer ../../meta-bbb/
+	echo "Adding layer meta-openembedded/meta-oe/"
 	bitbake-layers add-layer ../../meta-openembedded/meta-oe/
+	echo "Adding layer meta-openembedded/meta-python/"
 	bitbake-layers add-layer ../../meta-openembedded/meta-python/
+	echo "Adding layer meta-openembedded/meta-networking/"
 	bitbake-layers add-layer ../../meta-openembedded/meta-networking/
+	echo "Adding layer meta-qt5"
 	bitbake-layers add-layer ../../meta-qt5
 	bitbake-layers show-layers
 	cd ../..
