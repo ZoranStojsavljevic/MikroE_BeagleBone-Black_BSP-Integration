@@ -72,7 +72,8 @@ for name in $names
 do
 	if [ "$ReleaseName" == $name ]; then
 		echo "Supported YOCTO Release Name entered $name!"
-		rm -rf build/
+		## Disabling rm -rf build/ - reason is ignorant handling
+		## rm -rf build/
 		checkout_release
 		cd poky/
 		set_build_env

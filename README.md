@@ -1,5 +1,15 @@
-## am335x Beaglebone-black BSP
-This repository is related to Texas Instruments Open Source Beaglebone Black referent development platform.
+# PRELIMINARY RELEASE (UNDER THE DEVELOPMENT/CONSTRUCTION)
+
+## Notes from the author
+IMPORTANT: Please, read carefully notes from the author!
+
+https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/Notes_from_the_author.md
+
+##  MikroE BeagleBone Black BSP Integration
+This repository explains BeagleBone Black referent development platform (based upon Texas Instruments (TI)
+armv7 A8 am335x) related to the MikroE CLICK mikroBUS HW and SW support design and integration.
+
+https://www.mikroe.com/
 
 ### am335x BeagleBone Black evaluation board setup
 
@@ -7,9 +17,22 @@ BeagleBone Black System Reference Manual
 
 https://cdn-shop.adafruit.com/datasheets/BBB_SRM.pdf
 
-element14 BeagleBone Black INDUSTRIAL System Reference Manual 
+element14 BeagleBone Black INDUSTRIAL System Reference Manual
 
 http://download.kamami.pl/p562276-BBBI_SRM_Rev%201.0%20VL.pdf
+
+## Building BBB BSP (YOCTO and Buildroot)
+
+In this repo there are various methods shown (as quick jump start to BBB Linux) how to build BBB BSP. Author
+prefers to build YOCTO (core-image-minimal) as a full system with Kernel Development headers included, so the
+author can use BBB as target development system for the native drivers and other testing purposes.
+
+Author in most cases builds U-Boot as latest U-Boot provided by U-Boot community, and uses kernel.org kernel
+tarballs as kernel build-up. YOCTO provides to author extensive root tree, but some users might preffer all
+BSP elements (U-Boot and kernel) from the YOCTO deploy dir, NOT only root tree.
+
+For the final development YOCTO tree is replaced by author with much more compact root tree from Buildroot
+package (as much smaller and optimally scalable root tree footprint).
 
 ### Get U-Boot
 
@@ -54,15 +77,7 @@ To make .config file, the following command is required:
 	Fedora:
 	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8
 
-### Actual u-boot compilation for the expert developers (part of porting effort) with no valid .dts tree present
-
-	Debian:
-	ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make -j8 EXT_DTB=<path/to/your/custom/built/dtb>
-
-	Fedora:
-	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8 EXT_DTB=<path/to/your/custom/built/dtb>
-
-### Place MLO and u-boot.img on SD card
+### Placing MLO and u-boot.img on SD card
 
 For the BBB board case, two files are generated: MLO and u-boot.img .
 
@@ -78,38 +93,40 @@ MLO should reside at offset 1024KB (1MB) of the SD card. To place it there (assu
 
 Note - the sizes of MLO and u-boot.img on the SD card may vary, so, please, adjust this as needed.
 
-The SD card device is typically something as /dev/sd<X> or /dev/mmcblk<X>. Note that there is a need for write permissions on the SD card for the command to succeed, so there is a need to su - as root, or use sudo, or do a chmod a+w as root on the SD card device node to grant permissions to users.
+The SD card device is typically something as /dev/sd<X> or /dev/mmcblk<X>. Note that there is a need for
+write permissions on the SD card for the command to succeed, so there is a need to su - as root, or use
+sudo, or do a chmod a+w as root on the SD card device node to grant permissions to users.
 
 ### Partitioning SD card
 
-Here, two parttion are create: /dev/sdX1 for kernel, and /dev/sdX2 for rootfs.
+Here, two partions are create: /dev/sdX1 for kernel, and /dev/sdX2 for rootfs.
 
 Given example where /dev/sdX is /dev/sdb :
 
-    echo "Create primary partition 1 for kernel"
-    echo -e "n\np\n1\n\n+256M\nw\n"  | fdisk /dev/sdb
+	echo "Create primary partition 1 for kernel"
+	echo -e "n\np\n1\n\n+256M\nw\n"  | fdisk /dev/sdb
 
-    echo "Create primary partition 2 for rootfs"
-    echo -e "n\np\n2\n\n+8192M\nw\n"  | fdisk /dev/sdb
+	echo "Create primary partition 2 for rootfs"
+	echo -e "n\np\n2\n\n+8192M\nw\n"  | fdisk /dev/sdb
 
-    echo "Formatting primary partition sdb1 for kernel"
-    mkfs.vfat -F 32 /dev/sdb1
+	echo "Formatting primary partition sdb1 for kernel"
+	mkfs.vfat -F 32 /dev/sdb1
 
-    echo "Formatting primary partition sdb2 for rootfs"
-    mkfs.ext4 -F /dev/sdb2
+	echo "Formatting primary partition sdb2 for rootfs"
+	mkfs.ext4 -F /dev/sdb2
 
-### Making kernel using kernel.org vanilla (the latest stable upon writing this document) kernel 5.5.2
+### Making kernel using kernel.org vanilla (the latest stable upon writing this document) kernel 5.5.5
 
-The kernel 5.5.2 source code is located @ the following location:
+The kernel 5.5.5 source code is located @ the following location:
 
 https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/
 
-The file to be downloaded is the following: linux-5.5.2.tar.xz
+The file to be downloaded is the following: linux-5.5.5.tar.xz
 
 The command to unpack the designated kernel is:
 
-	tar -xvf linux-5.5.2.tar.xz
-	cd linux-5.5.2/
+	tar -xvf linux-5.5.5.tar.xz
+	cd linux-5.5.5/
 
 To build the kernel, the following should be done:
 
@@ -129,15 +146,16 @@ Compile the kernel itself:
 	Fedora:
 	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8
 
-The kernel itself to be used is in the directory: .../linux-5.5.2/arch/arm/boot/ and it is called zImage:
+The kernel itself to be used is in the directory: .../linux-5.5.5/arch/arm/boot/ and it is called zImage:
 
-	.../linux-5.5.2/arch/arm/boot/zImage
+	.../linux-5.5.5/arch/arm/boot/zImage
 
-The .dtb file to be used is in the directory: .../linux-5.5.2/arch/arm/boot/dts/ and it is called am335x-boneblack.dtb
+The .dtb file to be used is in the directory: .../linux-5.5.5/arch/arm/boot/dts/ and it is called am335x-boneblack.dtb
 
-	.../linux-5.5.2/arch/arm/boot/dts/am335x-boneblack.dtb
+	.../linux-5.5.5/arch/arm/boot/dts/am335x-boneblack.dtb
 
-The location on SD card both components should be placed is /dev/sdX1 mounted to some directory (example: /tmp/sdX1 (where the SD card itself is: /dev/sdX).
+The location on SD card both components should be placed is /dev/sdX1 mounted to some directory (example: /tmp/sdX1
+(where the SD card itself is: /dev/sdX).
 
 Assuming X=b, it looks like:
 
@@ -145,7 +163,7 @@ Assuming X=b, it looks like:
 
 ## am335x Beaglebone-black Buildroot (making embedded Linux root tree)
 
-### Making rootfs (using latest up to date BuildRoot distribution):
+### Making rootfs (using latest up to date Buildroot distribution):
 
 https://bootlin.com/doc/training/buildroot/buildroot-labs.pdf
 
@@ -179,7 +197,7 @@ To customize .config file, the following command is required:
 	Fedora:
 	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8
 
-### The Buildroot output directory (where the results are stored)
+### The Buildroot output directory (location, the results are stored)
 
 	.../buildroot/output/images
 	[.../buildroot/output/images]$ ls -al
