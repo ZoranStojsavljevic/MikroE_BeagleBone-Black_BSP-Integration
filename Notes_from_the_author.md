@@ -18,8 +18,8 @@ silicon.
 
 	[1] Connecting BBB Expansion Header and MikroE mikroBUS schematic
 	[2] MikroBUS bridge device/gadget performing the phy connection
-	[3] CLICK SPI Flash System and Application SW, showing the CLICK Referent Example (Example 1)
-	[4] CLICK SPI/I2C to Serial Bridge System and Application SW, showing the CLICK Referent Design (Example 2)
+	[3] MASTER EXAMPLE MIKROE-3349: CLICK SPI/I2C to Serial Bridge - BBB Linux Kernel + DTS Configuration
+	    (partially written, yet to be tested on BeagleBone Black)
+	[4] Example 2: CLICK SPI Flash - BBB Linux Kernel + DTS Configuration
 
-Thank you,
 Zoran Stojsavljevic
