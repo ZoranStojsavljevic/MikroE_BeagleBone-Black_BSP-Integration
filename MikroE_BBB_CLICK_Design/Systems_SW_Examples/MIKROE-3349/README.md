@@ -5,9 +5,7 @@ CLICK SPI/I2C to Serial Bridge Systems and Application SW, showing the CLICK Ref
 https://media.digikey.com/pdf/Data%20Sheets/MikroElektronika%20PDFs/MIKROE-3349_Web.pdf
 
 #### Step 1: Click HW used in the master example
-
-![](../Images/MIKROE-3349.jpg)
-
+![](https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/MikroE_BBB_CLICK_Design/Images/MIKROE-3349.jpg)
 Please, find the click description from the above image:
 
 The design of the UART I2C/SPI click is based around two integrated circuits. The first IC is the
@@ -27,7 +25,7 @@ simplified case in order to prove the architecture and design: MIKROE-3349 I2C t
 #### Step 3: HW Considerations
 
 The mikroBUS looks like the following:
-![](Images/mikroBUS.jpg)
+![](https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/MikroE_BBB_CLICK_Design/Images/mikroBUS.jpg)
 As seen from the picture, there are only 4+1 signals required from the BBB expansion connector
 to the mikroBUS (shown in the following table):
 
@@ -164,7 +162,7 @@ The sc16is740-i2c-overlay.dts file looks something like:
 	};
 };
 ```
-#### Step 6: Compiling and installing sc16is740-i2c-overlay.dts using DTC built-in kernel itself
+#### Step 6: Compiling and installing sc16is740-i2c-overlay.dts using DTC built-in kernel tree itself
 
 Please, compile and install sc16is740-i2c-overlay.dts using built-in DTC compiler in kernel itself:
 
@@ -173,5 +171,4 @@ Please, compile and install sc16is740-i2c-overlay.dts using built-in DTC compile
 
 ### Notes from the author
 
-#### Please, do note that sc16is740-i2c-overlay.dts overlay file shown is
-#### preliminary provided file, and it will change after the development!
+#### Please, do note that sc16is740-i2c-overlay.dts overlay file shown is preliminary provided file, and it will change after the development!
