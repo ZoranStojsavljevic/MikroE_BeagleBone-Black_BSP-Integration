@@ -24,13 +24,9 @@ https://raw.githubusercontent.com/beagleboard/beaglebone-black/master/BBB_SCH.pd
 Schematic also could be found in local dir: Docs/BBB_SCH.pdf
 
 ## BeagleBone Expansion Header
-
 ![](Images/BBB_Expansion_Header.jpg)
-
 ## MikroElektronika's mikroBUS design description
-
 ![](Images/mikroBUS.jpg)
-
 ## [TODO] Connecting BBB Expansion Header and MikroE mikroBUS schematic
 
 ## [TODO] MikroBUS bridge device/gadget performing the phy connection
