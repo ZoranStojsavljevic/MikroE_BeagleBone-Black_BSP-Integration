@@ -1,5 +1,5 @@
 /*
- ^ SPDX-License-Identifier: GPL-2.0-only
+ * SPDX-License-Identifier: GPL-2.0-only
  *
  * Description taken from the following pointer:
  * sc16is7xx uart i2c kernelmodule problems #2241

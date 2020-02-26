@@ -35,7 +35,7 @@ to the mikroBUS (shown in the following table):
 	[4] SDA
 	[5] INT (if possible)
 
-#### Step 4: Change current kernel .config (to include SC16IS7xx driver as part of the kernel)
+#### Step 4: Changing current kernel .config (to include SC16IS7xx driver as part of the kernel)
 
 Please, read README.md for the better Linux kernel requirements' understanding:
 
@@ -57,7 +57,7 @@ Change kernel .config (original defconfig used to build .config is omap2plus_def
 
 Please, find the following options and add them to be included in the kernel:
 
-	Symbol: SERIAL_SC16IS7XX [=y]
+	  │ Symbol: SERIAL_SC16IS7XX [=y]
 	  │ Type  : tristate
 	  │ Prompt: SC16IS7xx serial support
 	  │   Location:
@@ -84,6 +84,8 @@ Please, find the following options and add them to be included in the kernel:
 	  │   Location:
 	  │     -> Device Drivers
 
+### (Do note that sc16is740-i2c-overlay.dts shown is default file, and it is subject to change)
+
 They will appear as the following CONFIG options in the .config :
 
 	CONFIG_SERIAL_SC16IS7XX_CORE=y
@@ -98,11 +100,30 @@ For the initial testing, the following configuration should be enough (minimal c
 	CONFIG_SERIAL_SC16IS7XX_I2C=y
 	# CONFIG_SERIAL_SC16IS7XX_SPI is not set
 
-Then proceed to the master README.md to find instructions how to make customized kernel:
+### Step 5: Changing current kernel .config (to include DTS overlay as part of the kernel)
+
+In the most common case used (to added kernel device driver having its own DTS representation),
+DTS overlay is used. The kernel DTS overlay representation is the following:
+
+	  │ Symbol: OF_OVERLAY [=y]
+	  │ Type  : bool
+	  │ Prompt: Device Tree overlays
+	  │   Location:
+	  │     -> Device Drivers
+	  │ (2)   -> Device Tree and Open Firmware support (OF [=y])
+	  │   Defined at drivers/of/Kconfig:92
+	  │   Depends on: OF [=y]
+
+They will appear as the following CONFIG options in the .config :
+
+	CONFIG_OF_OVERLAY=y
+	# CONFIG_OVERLAY_FS is not set
+
+Please, proceed to the master README.md to find instructions how to make customized kernel:
 
 https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/README.md
 
-#### Step 5: The SC16IS740 Device Tree Source as DTS overlay
+#### Step 6: The SC16IS740 Device Tree Source as DTS overlay
 
 From the kernel documentation (using BootLin repos):
 https://elixir.bootlin.com/linux/latest/source/Documentation/devicetree/bindings/serial/nxp,sc16is7xx.txt
@@ -116,7 +137,7 @@ and there file created/copied:
 The sc16is740-i2c-overlay.dts file looks something like:
 ```
 /*
- ^ SPDX-License-Identifier: GPL-2.0-only
+ * SPDX-License-Identifier: GPL-2.0-only
  *
  * Description taken from the following pointer:
  * sc16is7xx uart i2c kernelmodule problems #2241
@@ -162,13 +183,11 @@ The sc16is740-i2c-overlay.dts file looks something like:
 	};
 };
 ```
-#### Step 6: Compiling and installing sc16is740-i2c-overlay.dts using DTC built-in kernel tree itself
+#### Step 7: Compiling and installing sc16is740-i2c-overlay.dts using DTC built-in kernel tree itself
 
-Please, compile and install sc16is740-i2c-overlay.dts using built-in DTC compiler in kernel itself:
+sc16is740-i2c-overlay.dts should reside at kernel tree location: .../arch/arm/boot/overlays/
+
+Please, compile and install sc16is740-i2c-overlay.dts using built-in DTC compiler to kernel itself:
 
 	$ dtc -@ -I dts -O dtb -o sc16is740-i2c.dtbo sc16is740-i2c-overlay.dts
 	$ sudo cp sc16is740-i2c.dtbo /boot/overlays
-
-### Notes from the author
-
-#### Please, do note that sc16is740-i2c-overlay.dts overlay file shown is preliminary provided file, and it will change after the development!
