@@ -64,10 +64,10 @@ Build U-Boot using an ARM cross compiler, Debian Buster and Fedora 31:
 To make .config file, the following command is required:
 
 	Debian:
-	ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make -j8 am335x-evm_defconfig
+	ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make -j8 am335x_evm_defconfig
 
 	Fedora:
-	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8 am335x-evm_defconfig
+	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8 am335x_evm_defconfig
 
 ### Actual U-Boot compilation
 
@@ -99,15 +99,15 @@ sudo, or do a chmod a+w as root on the SD card device node to grant permissions 
 
 ### Partitioning SD card
 
-Here, two partions are create: /dev/sdX1 for kernel, and /dev/sdX2 for rootfs.
+Here, two partions are created: /dev/sdX1 for kernel, and /dev/sdX2 for rootfs.
 
 Given example where /dev/sdX is /dev/sdb :
 
 	echo "Create primary partition 1 for kernel"
-	echo -e "n\np\n1\n\n+256M\nw\n"  | fdisk /dev/sdb
+	echo -e "n\np\n1\n\n+256M\nw\n" | fdisk /dev/sdb
 
 	echo "Create primary partition 2 for rootfs"
-	echo -e "n\np\n2\n\n+8192M\nw\n"  | fdisk /dev/sdb
+	echo -e "n\np\n2\n\n+8192M\nw\n" | fdisk /dev/sdb
 
 	echo "Formatting primary partition sdb1 for kernel"
 	mkfs.vfat -F 32 /dev/sdb1
@@ -137,6 +137,36 @@ Make proper .config:
 
 	Fedora:
 	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8 omap2plus_defconfig
+
+In order to make changes to the .config file, the following must be done!
+
+Change kernel .config (original defconfig used to build .config is omap2plus_defconfig):
+
+	Debian:
+	ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make -j8 menuconfig
+
+	Fedora:
+	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8 menuconfig
+
+For systemd service to work, the following change must be done in .config
+
+	  │ Symbol: CGROUPS [=y]
+	  │ Type  : bool
+	  │ Prompt: Control Group support
+	  │   Location:
+	  │ (1) -> General setup
+	  │   Defined at init/Kconfig:805
+	  │   Selects: KERNFS [=y]
+	  │   Selected by [n]:
+	  │   - SCHED_AUTOGROUP [=n]
+
+They will appear as the following CONFIG options in the .config :
+
+	CONFIG_CGROUPS=y
+	CONFIG_KERNFS=y
+
+For additional systemd service setup, please, read README file in the systemd sources
+folder - it describes all options required to be enabled in kernel configuration.
 
 Compile the kernel itself:
 

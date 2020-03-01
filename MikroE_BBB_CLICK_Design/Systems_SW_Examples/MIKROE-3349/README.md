@@ -100,7 +100,7 @@ For the initial testing, the following configuration should be enough (minimal c
 	CONFIG_SERIAL_SC16IS7XX_I2C=y
 	# CONFIG_SERIAL_SC16IS7XX_SPI is not set
 
-### Step 5: Changing current kernel .config (to include DTS overlay as part of the kernel)
+#### Step 5: Changing current kernel .config (to include DTS overlay as part of the kernel)
 
 In the most common case used (to added kernel device driver having its own DTS representation),
 DTS overlay is used. The kernel DTS overlay representation is the following:
