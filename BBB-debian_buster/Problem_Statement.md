@@ -104,7 +104,7 @@ the proprietary licence.
 		};
 	};
 
-After importing this overlay, the following is an outcome on the targett BBB platform:
+After importing this overlay, the following is an outcome on the target BBB platform:
 
 	# i2cdetect -r 2
 

@@ -206,7 +206,7 @@ https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/bl
 		};
 	};
 
-After importing this overlay, the following is an outcome on the targett BBB platform:
+After importing this overlay, the following is an outcome on the target BBB platform:
 
 	# i2cdetect -r 2
 
@@ -277,4 +277,4 @@ After importing this overlay, the following is an outcome on the targett BBB pla
 		};
 	};
 
-The Prolem Statement is given in the following file: Problem_statement.md !
+The Problem Statement is given in the following file: Problem_Statement.md !
