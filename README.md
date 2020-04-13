@@ -1,5 +1,9 @@
 # PRELIMINARY RELEASE (UNDER THE DEVELOPMENT/CONSTRUCTION)
 
+Please, do note that the structure of this GitHub Repo has been changed significantly.
+
+Please, do note that there is a new domain added: BBB-debian_buster !
+
 ## Notes from the author
 IMPORTANT: Please, read carefully notes from the author!
 
@@ -44,8 +48,7 @@ The latest U-Boot version might not work out of the box.
 
 The cloned version will match HEAD set to master branch (the following command is optional):
 
-	git checkout -b <branch-name> # Take the current HEAD (the commit checked
-	# out) and create a new branch called <branch-name>
+	git checkout -b <branch-name> # Take the current HEAD and create a new branch called <branch-name>
 
 ### Installing arm cross compiler on the host (the hosts used are Debian Buster and Fedora 31 distros)
 

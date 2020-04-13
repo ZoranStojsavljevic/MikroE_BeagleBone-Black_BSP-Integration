@@ -27,9 +27,16 @@ Schematic also could be found in local dir: Docs/BBB_SCH.pdf
 ![](Images/BBB_Expansion_Header.jpg)
 ## MikroElektronika's mikroBUS design description
 ![](Images/mikroBUS.jpg)
-## [TODO] Connecting BBB Expansion Header and MikroE mikroBUS schematic
+## Connecting BBB Expansion Header and MikroE mikroBUS schematic
 
-## [TODO] MikroBUS bridge device/gadget performing the phy connection
+https://insigntech.files.wordpress.com/2013/09/bbb_pinouts.jpg
+
+https://vadl.github.io/beagleboneblack/2016/07/29/setting-up-bbb-gpio
+
+## MikroBUS bridge device/gadget performing the phy connection
+![](Images/beaglebone-mikrobus-cape.jpg)
+
+https://download.mikroe.com/documents/add-on-boards/click-shields/mikrobus-cape/beagleboane-mikrobus-cape-manual-v100.pdf
 
 ## Master Example: MIKROE-3349: I2C/ISP to serial I/F click
 
@@ -40,7 +47,7 @@ https://media.digikey.com/pdf/Data%20Sheets/MikroElektronika%20PDFs/MIKROE-3349_
 Please, go to:
 https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/MikroE_BBB_CLICK_Design/Systems_SW_Examples/MIKROE-3349.md
 
-## Example 2: MikroElektronika's ISP flash click schematic
+## Example 2: MikroElektronika's SPI flash click schematic
 
 https://download.mikroe.com/documents/add-on-boards/click/flash/flash-click-manual-v100.pdf
 
