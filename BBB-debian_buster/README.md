@@ -5,7 +5,7 @@
 ![](../MikroE_BBB_CLICK_Design/Images/beaglebone-mikrobus-cape.jpg)
 ![](../MikroE_BBB_CLICK_Design/Images/beaglebone-mikrobus-cape-SC16IS740.jpg)
 
-### The mandatory reading to understand U-boot 04.2019 overlays
+### U-boot 04.2019 Overlays
 
 The mandatory reading to understand U-boot 04.2019 overlays and environment
 setup is posted here:
@@ -45,7 +45,7 @@ Configure and Build:
 	make ARCH=arm CROSS_COMPILE=${CC} am335x_evm_defconfig
 	make ARCH=arm CROSS_COMPILE=${CC}
 
-### The alternative link as optional reading
+#### Optional Reading
 
 U-Boot Overlays:
 
@@ -64,7 +64,7 @@ http://www.programmersought.com/article/19361176463/
 	$ sudo ./update_kernel.sh ## update to the latest kernel, supporting bb-overlays
 	$ sudo reboot
 
-#### Supported Linux Kernels: v4.19.x:
+#### Supported Linux Kernels: v4.19.x
 
 v4.19.x-ti:
 
@@ -82,6 +82,10 @@ v4.19.x mainline + Real Time:
 
 	# /opt/scripts/tools/update_kernel.sh --lts-4_19 --bone-rt-channel
 
+#### Supported Linux Kernels: v5.4.24
+
+	# /opt/scripts/tools/update_kernel.sh --lts-5-4.24
+
 #### Tested Versions of dtc:
 
 	v1.4.4
@@ -92,7 +96,7 @@ v4.19.x mainline + Real Time:
 
 Known Broken: v1.4.5 (DO NOT USE)
 
-### Building a custom bb-kernel
+### Building a Custom BB-kernel
 https://github.com/RobertCNelson/bb-kernel
 
 Current development is found under branches.
@@ -113,11 +117,11 @@ https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/bl
 
 https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/BBB-debian_buster/MikroE_BBB_CLICK_Design/Systems_SW_Examples/MIKROE-3349/README.md
 
-### U-Boot uEnv.txt file
+### U-Boot uEnv.txt File
 
 https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/BBB-debian_buster/uEnv.txt
 
-### BBB P9 header I2C2 overlay (BB-I2C2-00A0.dts file)
+### BBB P9 header I2C2 Overlay (BB-I2C2-00A0.dts file)
 
 	$ cat BB-I2C2-00A0.dts
 
@@ -224,7 +228,7 @@ After importing this overlay, the following is an outcome on the target BBB plat
 	60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 	70: -- -- -- -- -- -- -- -- 
 
-### SC16IS740 silicon overlay (BB-SC16IS740-00A0.dts file)
+### BB-SC16IS740 Silicon Overlay
 
 	$ cat BB-SC16IS740-00A0.dts
 

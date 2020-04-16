@@ -23,8 +23,15 @@ https://raw.githubusercontent.com/beagleboard/beaglebone-black/master/BBB_SCH.pd
 
 Schematic also could be found in local dir: Docs/BBB_SCH.pdf
 
+## MikroE MikroBus
+
+https://raw.githubusercontent.com/wiki/beagleboard/pocketbeagle/images/mikrobus-socket-pinout.jpg
+
+
+
 ## BeagleBone Expansion Header
 ![](Images/BBB_Expansion_Header.jpg)
+
 ## MikroElektronika's mikroBUS design description
 ![](Images/mikroBUS.jpg)
 ## Connecting BBB Expansion Header and MikroE mikroBUS schematic

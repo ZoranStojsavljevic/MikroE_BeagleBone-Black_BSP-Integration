@@ -246,7 +246,7 @@ it blocks BSP in U-Boot.
 Should this RST pin be set to 1 for the SC16IS740 silicon? So, to set this pin
 as GPIO 60 pin, output direction, value HIGH (1)?
 
-In fact, there was an attempt to set initially P9.12 (GPUO 60) to desired direction and
+In fact, there was an attempt to set initially P9.12 (GPIO 60) to desired direction and
 value: OUT and HIGH (to assure that entire silicon SC16IS740IPW is out of RESET).
 
 	0x078 0x1f	/* (PIN_OUTPUT_PULLUP | MUX_MODE7) P9.12 -> GPIO1_28 */
