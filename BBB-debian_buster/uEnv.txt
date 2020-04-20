@@ -18,9 +18,12 @@ enable_uboot_overlays=1
 #uboot_overlay_addr3=/lib/firmware/<file3>.dtbo
 ###
 
-### uboot_overlay_addr1=/lib/firmware/BB-SC16IS740-00A0.dtbo
 uboot_overlay_addr1=/lib/firmware/BB-I2C2-00A0.dtbo
 uboot_overlay_addr2=/lib/firmware/BB-SC16IS740-00A0.dtbo
+### uboot_overlay_addr2=/lib/firmware/PB-I2C2-RTC-CLICK.dtbo
+### uboot_overlay_addr1=/lib/firmware/BB-SPIDEV0-00A0.dtbo
+### uboot_overlay_addr1=/lib/firmware/PB-SPI0-ETH-CLICK-00A0.dtbo
+### uboot_overlay_addr1=/lib/firmware/PB-I2C2-RTC-PCF8523-00A0.dtbo
 
 ###Additional custom capes
 #uboot_overlay_addr4=/lib/firmware/<file4>.dtbo

@@ -235,6 +235,8 @@ https://insigntech.files.wordpress.com/2013/09/bbb_pinouts.jpg
 The INT (interrupt) signal is required. And INT also requires a pull up. Maybe this
 is the problem (configuring INT1 P9.15 pin as GPIO)?
 
+Or P9.15 (INT# signal) needs a strong pull-up (circa 1.8K - 3.3K) on BBB Cape board.
+
 The same happens changing to the MikroBus Cape Slot 2 (INT2 P9.41, which is GPIO 20),
 it blocks BSP in U-Boot.
 

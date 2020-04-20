@@ -281,4 +281,22 @@ After importing this overlay, the following is an outcome on the target BBB plat
 		};
 	};
 
+### Reading Loaded Overlays
+
+The loaded overlays could be found in the following directory: /proc/device-tree/chosen/overlays/ :
+
+	root@arm:/home/debian# ls -al /proc/device-tree/chosen/overlays/
+	total 0
+	drwxr-xr-x 2 root root  0 Apr 20 04:50 .
+	drwxr-xr-x 3 root root  0 Apr 20 04:50 ..
+	-r--r--r-- 1 root root 25 Apr 20 04:50 AM335X-PRU-RPROC-4-19-TI-00A0
+	-r--r--r-- 1 root root 25 Apr 20 04:50 BB-ADC-00A0
+	-r--r--r-- 1 root root 25 Apr 20 04:50 BB-BONE-eMMC1-01-00A0
+	-r--r--r-- 1 root root 25 Apr 20 04:50 BB-HDMI-TDA998x-00A0
+	-r--r--r-- 1 root root 25 Apr 20 04:50 BB-I2C2-00A0
+	-r--r--r-- 1 root root 25 Apr 20 04:50 BB-SC16IS740-00A0
+	-r--r--r-- 1 root root  9 Apr 20 04:50 name
+
+### Problem Statement
+
 The Problem Statement is given in the following file: Problem_Statement.md !

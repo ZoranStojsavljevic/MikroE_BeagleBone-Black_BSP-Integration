@@ -15,7 +15,33 @@
 / {
 	compatible = "ti,beaglebone", "ti,beaglebone-black";
 
+	// identification
+	part-number = "BB-SC16IS740";
+	version = "00A0";
+
+	// resources this cape uses
+	exclusive-use =
+		"P9.12",        // GPIO1_28 = GPIO 60
+		"P9.19",        // i2c2_sda
+		"P9.20",        // i2c2_scl
+		"i2c2";         // hardware ip used
+
+	/*
+	 * Helper to show loaded overlays under: /proc/device-tree/chosen/overlays/
+	 */
 	fragment@0 {
+		target-path="/";
+		__overlay__ {
+
+			chosen {
+				overlays {
+					BB-SC16IS740-00A0 = "Thu Mar 12 19:35:36 2020";
+				};
+			};
+		};
+	};
+
+	fragment@1 {
 		target = <&i2c2>;
 		__overlay__ {
 			#address-cells = <1>;
@@ -26,8 +52,8 @@
 				compatible = "nxp,sc16is740";
 				reg = <0x49>; /* address */
 				clocks = <&sc16is740_clk>;
-				// interrupt-parent = <&gpio>;
-				// interrupts = <48 2>; /* IRQ_TYPE_EDGE_FALLING */
+				interrupt-parent = <&gpio>;
+				interrupts = <48 8>; /* IRQ_TYPE_LEVEL_LOW */
 				#gpio-cells = <2>;
 
 				sc16is740_clk: sc16is740_clk {
