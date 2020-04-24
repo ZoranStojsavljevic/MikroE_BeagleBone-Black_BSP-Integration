@@ -27,8 +27,6 @@ Schematic also could be found in local dir: Docs/BBB_SCH.pdf
 
 https://raw.githubusercontent.com/wiki/beagleboard/pocketbeagle/images/mikrobus-socket-pinout.jpg
 
-
-
 ## BeagleBone Expansion Header
 ![](Images/BBB_Expansion_Header.jpg)
 

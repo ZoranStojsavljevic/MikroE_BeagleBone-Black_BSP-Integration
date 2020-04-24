@@ -1,0 +1,134 @@
+/*
+ * Device tree overlay for sc16is740/ttysc0 on spi0.1
+ */
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "ti,beaglebone", "ti,beaglebone-black";
+	/* identification */
+	part-number = "PB-SC16IS740-TTYSC0";
+	version = "00A0";
+
+	/* state the resources this cape uses */
+	exclusive-use =
+		/* the pin header uses */
+		"P9.17",	/* P9_17 (A16) spi0_cs0.spi0_cs0 */
+		"P9.18",	/* P9_18 (B16) spi0_d1.spi0_d1 */
+		"P9.21",	/* P9_21 (B17) spi0_d0.spi0_d0 */
+		"P9.22",	/* P9_22 (A17) spi0_sclk.spi0_sclk */
+		/* the hardware ip uses */
+		"spi0";
+
+	// SPI0_CS -> P9_17 ( PIN_OUTPUT ) MODE0.
+	// SPI0_D1 -> P9_18 ( PIN_OUTPUT ) MODE0.
+	// SPI0_D0 -> P9_21 ( PIN_INPUT ) MODE0.
+	// SPI0_SCLK -> P9_22 ( PIN_OUTPUT ) MODE0.
+
+	/*
+	 * Helper to show loaded overlays under: /proc/device-tree/chosen/overlays/
+	 */
+	fragment@0 {
+		target-path="/";
+		__overlay__ {
+
+			chosen {
+				overlays {
+					PB-SC16IS740-TTYSC0-00A0 = "Mon Mar 30 15:08:20 2020";
+				};
+			};
+		};
+	};
+
+	/*
+	 * Free up the pins used by the cape from the pinmux helpers.
+	 */
+	fragment@1 {
+		target = <&ocp>;
+		__overlay__ {
+			P9_17_pinmux { status = "disabled"; };	/* P9_17 (A16) spi0_cs0.spi0_cs0 */
+			P9_18_pinmux { status = "disabled"; };	/* P9_18 (B16) spi0_d1.spi0_d1 */
+			P9_21_pinmux { status = "disabled"; };	/* P9_21 (B17) spi0_d0.spi0_d0 */
+			P9_22_pinmux { status = "disabled"; };	/* P9_22 (A17) spi0_sclk.spi0_sclk */
+		};
+	};
+
+	fragment@2 {
+		target = <&am33xx_pinmux>;
+		__overlay__ {
+			pb_spi0_pins: pinmux_pb_spi0_pins {
+				// pinctrl-single,pins = <0x00000150 0x00000028 0x00000154 0x00000028 0x00000158 0x00000028 0x0000015c 0x00000028>;
+				pinctrl-single,pins = <0x00000150 0x00000008 0x00000154 0x00000028 0x00000158 0x00000008 0x0000015c 0x00000008>;
+				// pinctrl-single,pins = <
+				//	AM33XX_IOPAD(0x0950, PIN_INPUT | MUX_MODE0 ) /* P9_22 (A17) spi0_sclk.spi0_sclk */
+				//	AM33XX_IOPAD(0x0954, PIN_INPUT | MUX_MODE0 ) /* P9_21 (B17) spi0_d0.spi0_d0 */
+				//	AM33XX_IOPAD(0x0958, PIN_INPUT | MUX_MODE0 ) /* P9_18 (B16) spi0_d1.spi0_d1 */
+				//	AM33XX_IOPAD(0x095c, PIN_INPUT | MUX_MODE0 ) /* P9_17 (A16) spi0_cs0.spi0_cs0 */
+				// >;
+			};
+		};
+	};
+
+	/* disable spi-dev for spi0.1 */
+	fragment@3 {
+		target = <&spi0>;
+		__overlay__ {
+			status = "okay";
+			spidev@1 {
+				status = "disabled";
+			};
+		};
+	};
+
+	/* the interrupt pin */
+	fragment@4 {
+		target = <&gpio>;
+		__overlay__ {
+			ttysc0_pins: ttysc0_pins {
+				ti,pins = <65>;
+				ti,function = <0>; /* input */
+			};
+		};
+	};
+
+	/* the clock/oscillator */
+	fragment@5 {
+		target-path = "/clocks";
+		__overlay__ {
+			/* external oscillator of sc16is740 on SPI0.1 */
+			ttysc0_osc: ttysc0_osc {
+				compatible = "fixed-clock";
+				#clock-cells = <0>;
+				clock-frequency  = <1843200>;
+			};
+		};
+	};
+
+	/* the spi config binding everything together */
+	fragment@6 {
+		target = <&spi0>;
+		__overlay__ {
+			/* needed to avoid dtc warning */
+			#address-cells = <1>;
+			#size-cells = <0>;
+			ttysc0: sc16is740@1 {
+				reg = <1>;
+				compatible = "nxp,sc16is740";
+				pinctrl-names = "default";
+				pinctrl-0 = <&ttysc0_pins>;
+				spi-max-frequency = <4000000>;
+				interrupt-parent = <&gpio>;
+				interrupts = <65 0x8>; /* INT_LEVEL_LOW */
+				clocks = <&ttysc0_osc>;
+				status = "okay";
+			};
+		};
+	};
+
+	__overrides__ {
+		oscillator = <&ttysc0_osc>,"clock-frequency:0";
+		spimaxfrequency = <&ttysc0>,"spi-max-frequency:0";
+		interrupt = <&ttysc0_pins>,"ti,pins:0",<&ttysc0>,"interrupts:0";
+	};
+};

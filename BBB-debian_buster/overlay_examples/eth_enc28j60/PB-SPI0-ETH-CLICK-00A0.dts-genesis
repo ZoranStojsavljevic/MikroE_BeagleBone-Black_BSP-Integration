@@ -1,19 +1,3 @@
-## ETH-CLICK
-https://www.mikroe.com/eth-click
-
-### Explored Embedded HW Configuration:
-
-![](Images/beaglebone-ETH-cape.jpg)
-
-CLICK's HW scheme is shown here:
-
-https://download.mikroe.com/documents/add-on-boards/click/eth/eth-click-manual-v100.pdf
-
-### Overlay Hierarchy
-
-#### Custom Made Patchwork
-
-```
 /*
  * Copyright (C) 2017 Robert Nelson <robertcnelson@gmail.com>
  *
@@ -49,6 +33,11 @@ https://download.mikroe.com/documents/add-on-boards/click/eth/eth-click-manual-v
 		/* the hardware ip uses */
 		"spi0";
 
+	// SPI0_CS -> P9_17 ( PIN_OUTPUT ) MODE0.
+	// SPI0_D1 -> P9_18 ( PIN_OUTPUT ) MODE0.
+	// SPI0_D0 -> P9_21 ( PIN_INPUT ) MODE0.
+	// SPI0_SCLK -> P9_22 ( PIN_OUTPUT ) MODE0.
+
 	/*
 	 * Helper to show loaded overlays under: /proc/device-tree/chosen/overlays/
 	 */
@@ -77,7 +66,6 @@ https://download.mikroe.com/documents/add-on-boards/click/eth/eth-click-manual-v
 			P9_22_pinmux { status = "disabled"; };	/* P9_22 (A17) spi0_sclk.spi0_sclk */
 		};
 	};
-
 
 	fragment@2 {
 		target = <&am33xx_pinmux>;
@@ -126,53 +114,10 @@ https://download.mikroe.com/documents/add-on-boards/click/eth/eth-click-manual-v
 				pinctrl-0 = <&enc28j60_pins>;
 				reg = <0x0>;
 				interrupt-parent = <&gpio0>;
-				interrupts = <27 2>; /* INT4 P8.17 line, IRQ_TYPE_EDGE_FALLING */
+				interrupts = <65 2>; /* INT3 P8.18 line, IRQ_TYPE_EDGE_FALLING */
 				spi-max-frequency = <16000000>;
 				local-mac-address = [ 90 77 DE AD BE EF ];
 			};
 		};
 	};
 };
-```
-
-### Kernel ETH Driver Support
-
-	CONFIG_ENC28J60:
-	  │
-	  │ Support for the Microchip EN28J60 ethernet chip.
-	  │
-	  │ To compile this driver as a module, choose M here. The module will be
-	  │ called enc28j60.
-	  │
-	  │ Symbol: ENC28J60 [=y]
-	  │ Type  : tristate
-	  │ Prompt: ENC28J60 support
-	  │   Location:
-	  │     -> Device Drivers
-	  │       -> Network device support (NETDEVICES [=y])
-	  │         -> Ethernet driver support (ETHERNET [=y])
-	  │           -> Microchip devices (NET_VENDOR_MICROCHIP [=y])
-	  │   Defined at drivers/net/ethernet/microchip/Kconfig:19
-	  │   Depends on: NETDEVICES [=y] && ETHERNET [=y] && NET_VENDOR_MICROCHIP [=y] && SPI [=y]
-	  │   Selects: CRC32 [=y]
-
-### Reading Loaded Overlays
-
-The loaded overlays could be found in the following directory: /proc/device-tree/chosen/overlays/ :
-
-	root@arm:/home/debian# ls -al /proc/device-tree/chosen/overlays/
-	total 0
-	drwxr-xr-x 2 root root  0 Apr 20 14:37 .
-	drwxr-xr-x 3 root root  0 Apr 20 14:37 ..
-	-r--r--r-- 1 root root 25 Apr 20 14:37 AM335X-PRU-RPROC-4-19-TI-00A0
-	-r--r--r-- 1 root root 25 Apr 20 14:37 BB-ADC-00A0
-	-r--r--r-- 1 root root 25 Apr 20 14:37 BB-BONE-eMMC1-01-00A0
-	-r--r--r-- 1 root root 25 Apr 20 14:37 BB-HDMI-TDA998x-00A0
-	-r--r--r-- 1 root root  9 Apr 20 14:37 name
-	-r--r--r-- 1 root root 25 Apr 20 14:37 PB-SPI0-ETH-CLICK-00A0
-
-### Problems detected?
-
-Yet to be determined... Still does not work!
-
-Most probable INT# signal needs a strong pull-up (circa 1.8K - 3.3K) on BBB Cape board.
