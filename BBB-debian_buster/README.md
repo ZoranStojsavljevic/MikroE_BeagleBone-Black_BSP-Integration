@@ -1,5 +1,8 @@
 ## BBB Debian Buster Environment Setup
 
+## WARNING: The BBB board revision used is 0A5C! Thus BBB board 000C should be obtained!!!
+## People are highly encouraged to use overlays in .../BBB-debian_buster/overlay_examples/
+
 ### Explored Embedded HW Configuration:
 
 ![](../MikroE_BBB_CLICK_Design/Images/beaglebone-mikrobus-cape.jpg)
@@ -145,7 +148,6 @@ https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/bl
 
 		// resources this cape uses
 		exclusive-use =
-			"P9.12",	// GPIO1_28 = GPIO 60
 			"P9.19",	// i2c2_sda
 			"P9.20",	// i2c2_scl
 			"i2c2";		// hardware ip used
@@ -171,7 +173,6 @@ https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/bl
 		fragment@1 {
 			target = <&ocp>;
 			__overlay__ {
-				P9_12_pinmux { status = "disabled"; };	/* GPIO 60 */
 				P9_19_pinmux { status = "disabled"; };	/* i2c2_scl */
 				P9_20_pinmux { status = "disabled"; };	/* i2c2_sda */
 			};
@@ -182,7 +183,6 @@ https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/bl
 			__overlay__ {
 				bb_i2c2_pins: pinmux_bb_i2c2_pins {
 					pinctrl-single,pins = <
-						0x078 0x1f	/* (PIN_OUTPUT_PULLUP | MUX_MODE7) GPIO1_28 */
 						0x17c 0x73	/* i2c2_sda, SLEWCTRL_SLOW | INPUT_PULLUP | MODE3 */
 						0x178 0x73	/* i2c2_scl, SLEWCTRL_SLOW | INPUT_PULLUP | MODE3 */
 					>;
@@ -260,9 +260,9 @@ After importing this overlay, the following is an outcome on the target BBB plat
 					compatible = "nxp,sc16is740";
 					reg = <0x49>; /* address */
 					clocks = <&sc16is740_clk>;
-					// interrupt-parent = <&gpio>;
-					// interrupts = <48 2>; /* IRQ_TYPE_EDGE_FALLING */
-					// gpio-controller;
+					interrupt-parent = <&gpio>;
+					interrupts = <48 2>; /* IRQ_TYPE_EDGE_FALLING */
+					gpio-controller;
 					#gpio-cells = <2>;
 
 					sc16is740_clk: sc16is740_clk {
@@ -289,10 +289,6 @@ The loaded overlays could be found in the following directory: /proc/device-tree
 	total 0
 	drwxr-xr-x 2 root root  0 Apr 20 04:50 .
 	drwxr-xr-x 3 root root  0 Apr 20 04:50 ..
-	-r--r--r-- 1 root root 25 Apr 20 04:50 AM335X-PRU-RPROC-4-19-TI-00A0
-	-r--r--r-- 1 root root 25 Apr 20 04:50 BB-ADC-00A0
-	-r--r--r-- 1 root root 25 Apr 20 04:50 BB-BONE-eMMC1-01-00A0
-	-r--r--r-- 1 root root 25 Apr 20 04:50 BB-HDMI-TDA998x-00A0
 	-r--r--r-- 1 root root 25 Apr 20 04:50 BB-I2C2-00A0
 	-r--r--r-- 1 root root 25 Apr 20 04:50 BB-SC16IS740-00A0
 	-r--r--r-- 1 root root  9 Apr 20 04:50 name

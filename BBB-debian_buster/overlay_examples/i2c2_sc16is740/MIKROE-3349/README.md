@@ -37,9 +37,9 @@ to the mikroBUS (shown in the following table):
 
 #### Step 4: Changing current kernel .config (to include SC16IS7xx driver as part of the kernel)
 
-Please, read README.md for the better Linux kernel requirements' understanding:
+Please, read file KERNEL.md for the better Linux kernel requirements' understanding:
 
-https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/MikroE_BBB_CLICK_Design/Systems_SW_Examples/README.md
+https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/BBB-debian_buster/overlay_examples/KERNEL.md
 
 These requirements call for the customized kernel, which does NOT come out of the box!
 
@@ -54,6 +54,7 @@ Change kernel .config (original defconfig used to build .config is omap2plus_def
 
 	Fedora:
 	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8 menuconfig
+	ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make -j8 menuconfig (if Linaro cross GCC compiler installed)
 
 Please, find the following options and add them to be included in the kernel:
 
@@ -83,8 +84,6 @@ Please, find the following options and add them to be included in the kernel:
 	  │ Prompt: SC16IS7xx for I2C interface
 	  │   Location:
 	  │     -> Device Drivers
-
-### (Do note that sc16is740-i2c-overlay.dts shown is default file, and it is subject to change)
 
 They will appear as the following CONFIG options in the .config :
 
@@ -132,62 +131,68 @@ The overlays directory should be created in .../arch/arm/boot/ directory as:
 .../arch/arm/boot/overlays/
 
 and there file created/copied:
-.../arch/arm/boot/overlays/sc16is740-i2c-overlay.dts
+.../arch/arm/boot/overlays/BB-SC16IS740-00A0.dts
 
-The sc16is740-i2c-overlay.dts file looks something like:
-```
-/*
- * SPDX-License-Identifier: GPL-2.0-only
- *
- * Description taken from the following pointer:
- * sc16is7xx uart i2c kernelmodule problems #2241
- * https://github.com/raspberrypi/linux/issues/2241
- *
- * Example taken (and adapted for NXP sc16is740 silicon) from the following pointer:
- * https://github.com/Ysurac/raspberry_kernel_mptcp/blob/master/arch/arm/boot/dts/overlays/sc16is750-i2c-overlay.dts
- */
+The BB-SC16IS740-00A0.dts file looks something like:
 
-/dts-v1/;
-/plugin/;
+#### BB-SC16IS740 Silicon Overlay
 
-/ {
-	compatible = "ti,beaglebone", "ti,beaglebone-black";
+	$ cat BB-SC16IS740-00A0.dts
 
-	fragment@0 {
-		target = <&i2c_arm>;
-		__overlay__ {
-			#address-cells = <1>;
-			#size-cells = <0>;
-			status = "okay";
+	/*
+	 * SPDX-License-Identifier: GPL-2.0-only
+	 *
+	 * Description taken from the following pointer:
+	 * sc16is7xx uart i2c kernel module problems #2241
+	 * https://github.com/raspberrypi/linux/issues/2241
+	 *
+	 * Example taken (and adapted for NXP sc16is740 silicon) from the following pointer:
+	 * https://github.com/Ysurac/raspberry_kernel_mptcp/blob/master/arch/arm/boot/dts/overlays/sc16is750-i2c-overlay.dts
+	 */
 
-			sc16is740: sc16is740@48 {
-				compatible = "nxp,sc16is740";
-				reg = <0x48>; /* address */
-				clocks = <&sc16is740_clk>;
-				interrupt-parent = <&gpio>;
-				interrupts = <24 2>; /* IRQ_TYPE_EDGE_FALLING */
-				#gpio-cells = <2>;
+	/dts-v1/;
+	/plugin/;
 
-				sc16is740_clk: sc16is740_clk {
-					compatible = "fixed-clock";
-					#clock-cells = <0>;
-					clock-frequency = <14745600>;
+	/ {
+		compatible = "ti,beaglebone", "ti,beaglebone-black";
+
+		fragment@0 {
+			target = <&i2c2>;
+			__overlay__ {
+				#address-cells = <1>;
+				#size-cells = <0>;
+				status = "okay";
+
+				sc16is740: sc16is740@49 {
+					compatible = "nxp,sc16is740";
+					reg = <0x49>; /* address */
+					clocks = <&sc16is740_clk>;
+					interrupt-parent = <&gpio>;
+					interrupts = <48 2>; /* IRQ_TYPE_EDGE_FALLING */
+					gpio-controller;
+					#gpio-cells = <2>;
+
+					sc16is740_clk: sc16is740_clk {
+						compatible = "fixed-clock";
+						#clock-cells = <0>;
+						clock-frequency = <1843200>;
+					};
 				};
 			};
 		};
+
+		__overrides__ {
+			int_pin = <&sc16is740>,"interrupts:0";
+			addr = <&sc16is740>,"reg:0";
+			xtal = <&sc16is740>,"clock-frequency:0";
+		};
 	};
 
-	__overrides__ {
-		int_pin = <&sc16is740>,"interrupts:0";
-		addr = <&sc16is740>,"reg:0";
-	};
-};
-```
-#### Step 7: Compiling and installing sc16is740-i2c-overlay.dts using DTC built-in kernel tree itself
+#### Step 7: Compiling and installing BB-SC16IS740-00A0.dts using DTC built-in kernel tree itself
 
-sc16is740-i2c-overlay.dts should reside at kernel tree location: .../arch/arm/boot/overlays/
+BB-SC16IS740-00A0.dts should reside at kernel tree location: .../arch/arm/boot/overlays/
 
-Please, compile and install sc16is740-i2c-overlay.dts using built-in DTC compiler to kernel itself:
+Please, compile and install BB-SC16IS740-00A0.dts using built-in DTC compiler to kernel itself:
 
-	$ dtc -@ -I dts -O dtb -o sc16is740-i2c.dtbo sc16is740-i2c-overlay.dts
-	$ sudo cp sc16is740-i2c.dtbo /boot/overlays
+	$ dtc -@ -I dts -O dtb -o BB-SC16IS740-00A0.dtbo BB-SC16IS740-00A0.dts
+	$ sudo scp BB-SC16IS740-00A0.dtbo debian@<BBB IP address>:/lib/firmware

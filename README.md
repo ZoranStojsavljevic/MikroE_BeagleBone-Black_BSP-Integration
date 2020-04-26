@@ -1,8 +1,9 @@
 # PRELIMINARY RELEASE (UNDER THE DEVELOPMENT/CONSTRUCTION)
 
-Please, do note that the structure of this GitHub Repo has been changed significantly.
+## WARNING: The BBB board revision used is 0A5C! Thus BBB board 000C should be explored!!!
+## People are highly encouraged to use overlays in BBB-debian_buster/overlay_examples/
 
-Please, do note that there is a new domain added: BBB-debian_buster !
+Please, do note that the structure of this GitHub Repo has been changed significantly.
 
 ## Notes from the author
 IMPORTANT: Please, read carefully notes from the author!

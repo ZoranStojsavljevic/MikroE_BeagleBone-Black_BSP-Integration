@@ -43,17 +43,9 @@ https://vadl.github.io/beagleboneblack/2016/07/29/setting-up-bbb-gpio
 
 https://download.mikroe.com/documents/add-on-boards/click-shields/mikrobus-cape/beagleboane-mikrobus-cape-manual-v100.pdf
 
-## Master Example: MIKROE-3349: I2C/ISP to serial I/F click
+## Master Example: MIKROE-3349: I2C/SPI to serial I/F click
 
 https://media.digikey.com/pdf/Data%20Sheets/MikroElektronika%20PDFs/MIKROE-3349_Web.pdf
 
-### CLICK SPI/I2C to Serial Bridge Systems and Application SW, showing the CLICK Referent Design
-
 Please, go to:
-https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/MikroE_BBB_CLICK_Design/Systems_SW_Examples/MIKROE-3349.md
-
-## Example 2: MikroElektronika's SPI flash click schematic
-
-https://download.mikroe.com/documents/add-on-boards/click/flash/flash-click-manual-v100.pdf
-
-### [TODO] CLICK SPI Flash Systems and Application SW, showing the CLICK Referent Example
+https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/MikroE_BBB_CLICK_Design/BBB-debian_buster/overlay_examples/i2c2_sc16is740/

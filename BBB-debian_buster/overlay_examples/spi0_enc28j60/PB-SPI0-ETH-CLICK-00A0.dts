@@ -74,13 +74,13 @@
 			};
 
 			pb_spi0_pins: pinmux_pb_spi0_pins {
-				pinctrl-single,pins = <0x00000150 0x00000008 0x00000154 0x00000028 0x00000158 0x00000008 0x0000015c 0x00000008>;
-				// pinctrl-single,pins = <0x00000150 0x00000028 0x00000154 0x00000028 0x00000158 0x00000028 0x0000015c 0x00000028>;
+				// pinctrl-single,pins = <0x00000150 0x00000008 0x00000154 0x00000028 0x00000158 0x00000008 0x0000015c 0x00000008>;
+				pinctrl-single,pins = <0x00000150 0x00000028 0x00000154 0x00000028 0x00000158 0x00000028 0x0000015c 0x00000028>;
 				// pinctrl-single,pins = <
-				//	AM33XX_IOPAD(0x0950, PIN_OUTPUT | MUX_MODE0 ) /* P9_22 (A17) spi0_sclk.spi0_sclk */
-				//	AM33XX_IOPAD(0x0954, PIN_INPUT  | MUX_MODE0 ) /* P9_21 (B17) spi0_d0.spi0_d0 */
-				//	AM33XX_IOPAD(0x0958, PIN_OUTPUT | MUX_MODE0 ) /* P9_18 (B16) spi0_d1.spi0_d1 */
-				//	AM33XX_IOPAD(0x095c, PIN_OUTPUT | MUX_MODE0 ) /* P9_17 (A16) spi0_cs0.spi0_cs0 */
+				//	AM33XX_IOPAD(0x0950, PIN_INPUT | MUX_MODE0 ) /* P9_22 (A17) spi0_sclk.spi0_sclk */
+				//	AM33XX_IOPAD(0x0954, PIN_INPUT | MUX_MODE0 ) /* P9_21 (B17) spi0_d0.spi0_d0 */
+				//	AM33XX_IOPAD(0x0958, PIN_INPUT | MUX_MODE0 ) /* P9_18 (B16) spi0_d1.spi0_d1 */
+				//	AM33XX_IOPAD(0x095c, PIN_INPUT | MUX_MODE0 ) /* P9_17 (A16) spi0_cs0.spi0_cs0 */
 				// >;
 			};
 		};

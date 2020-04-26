@@ -73,7 +73,7 @@
 			pinctrl-0 = <&bb_i2c2_pins>;
 
 			/* this is the configuration part */
-			clock-frequency = <400000>;
+			clock-frequency = <100000>;
 
 			#address-cells = <1>;
 			#size-cells = <0>;
@@ -88,6 +88,18 @@
 			#address-cells = <1>;
 			#size-cells = <0>;
 			status = "okay";
+
+/*
+			cape_eeprom0: cape_eeprom0@54 {
+				compatible = "atmel,24c256";
+				reg = <0x54>;
+				#address-cells = <1>;
+				#size-cells = <1>;
+				cape0_data: cape_data@0 {
+					reg = <0 0x100>;
+				};
+			};
+^/
 
 			sc16is740: sc16is740@49 {
 				compatible = "nxp,sc16is740";

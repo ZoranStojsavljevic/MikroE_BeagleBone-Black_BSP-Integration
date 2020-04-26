@@ -204,7 +204,7 @@ https://github.com/beagleboard/bb.org-overlays/blob/master/src/arm/PB-I2C2-RTC-C
 	};
 
 #### Combined BB-I2C2-00A0 and PB-I2C2-RTC-CLICK Overlays
-https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/BBB-debian_buster/overlay_examples/rtc_pcf8583/BB-I2C2-PCF8523-00A0.dts
+https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/BBB-debian_buster/overlay_examples/i2c2_pcf8583/BB-I2C2-PCF8523-00A0.dts
 
 	/*
 	 * Copyright (C) 2017 Robert Nelson <robertcnelson@gmail.com>

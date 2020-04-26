@@ -1,5 +1,8 @@
 ## Problem Statement
 
+## WARNING: The BBB board revision used is 0A5C! Thus BBB board 000C should be obtained!!!
+## People are highly encouraged to use overlays in .../BBB-debian_buster/overlay_examples/
+
 This file is created in the attempt to explain what are the reasons the last overlay does
 not work. Here, there are both I2C2 and SC16IS740 DTS overlays shown.
 
@@ -154,8 +157,8 @@ After importing this overlay, the following is an outcome on the target BBB plat
 					compatible = "nxp,sc16is740";
 					reg = <0x49>; /* address */
 					clocks = <&sc16is740_clk>;
-					// interrupt-parent = <&gpio>;
-					// interrupts = <48 2>; /* IRQ_TYPE_EDGE_FALLING */
+					interrupt-parent = <&gpio>;
+					interrupts = <48 2>; /* IRQ_TYPE_EDGE_FALLING */
 					#gpio-cells = <2>;
 
 					sc16is740_clk: sc16is740_clk {

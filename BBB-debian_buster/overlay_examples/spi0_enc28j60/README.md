@@ -1,9 +1,19 @@
 ## ETH-CLICK
 https://www.mikroe.com/eth-click
 
+Please, do note the following schematics of BBB MikroBus Cape4:
+
+![](../Images/Cape4-SPI1-SPI2.jpg)
+
+Number of SPIs represented on this image is assymetric, so with the red circles there
+are 3 SPI1 shown (1st, 2nd and 4th slots, with different CSs), and with the blue ONLY
+one SPI2 (SPI0) shown (3rd slot).
+
+Since SPI0 is used, slot 3 is used.
+
 ### Explored Embedded HW Configuration:
 
-![](Images/beaglebone-ETH-cape.jpg)
+![](../Images/beaglebone-ETH-cape.jpg)
 
 CLICK's HW scheme is shown here:
 
@@ -78,7 +88,6 @@ https://download.mikroe.com/documents/add-on-boards/click/eth/eth-click-manual-v
 		};
 	};
 
-
 	fragment@2 {
 		target = <&am33xx_pinmux>;
 		__overlay__ {
@@ -97,6 +106,15 @@ https://download.mikroe.com/documents/add-on-boards/click/eth/eth-click-manual-v
 				//	AM33XX_IOPAD(0x0954, PIN_INPUT | MUX_MODE0 ) /* P9_21 (B17) spi0_d0.spi0_d0 */
 				//	AM33XX_IOPAD(0x0958, PIN_INPUT | MUX_MODE0 ) /* P9_18 (B16) spi0_d1.spi0_d1 */
 				//	AM33XX_IOPAD(0x095c, PIN_INPUT | MUX_MODE0 ) /* P9_17 (A16) spi0_cs0.spi0_cs0 */
+				// >;
+
+				// Just in case, alternative PIN definitions, which are NOT sustainable - section to be removed upon RT check!
+				// pinctrl-single,pins = <0x00000150 0x00000008 0x00000154 0x00000028 0x00000158 0x00000008 0x0000015c 0x00000008>;
+				// pinctrl-single,pins = <
+				//	AM33XX_IOPAD(0x0950, PIN_OUTPUT | MUX_MODE0 ) /* P9_22 (A17) spi0_sclk.spi0_sclk */
+				//	AM33XX_IOPAD(0x0954, PIN_INPUT  | MUX_MODE0 ) /* P9_21 (B17) spi0_d0.spi0_d0 */
+				//	AM33XX_IOPAD(0x0958, PIN_OUTPUT | MUX_MODE0 ) /* P9_18 (B16) spi0_d1.spi0_d1 */
+				//	AM33XX_IOPAD(0x095c, PIN_OUTPUT | MUX_MODE0 ) /* P9_17 (A16) spi0_cs0.spi0_cs0 */
 				// >;
 			};
 		};
@@ -137,7 +155,7 @@ https://download.mikroe.com/documents/add-on-boards/click/eth/eth-click-manual-v
 
 ### Kernel ETH Driver Support
 
-	CONFIG_ENC28J60:
+	  │ CONFIG_ENC28J60:
 	  │
 	  │ Support for the Microchip EN28J60 ethernet chip.
 	  │
@@ -164,15 +182,9 @@ The loaded overlays could be found in the following directory: /proc/device-tree
 	total 0
 	drwxr-xr-x 2 root root  0 Apr 20 14:37 .
 	drwxr-xr-x 3 root root  0 Apr 20 14:37 ..
-	-r--r--r-- 1 root root 25 Apr 20 14:37 AM335X-PRU-RPROC-4-19-TI-00A0
-	-r--r--r-- 1 root root 25 Apr 20 14:37 BB-ADC-00A0
-	-r--r--r-- 1 root root 25 Apr 20 14:37 BB-BONE-eMMC1-01-00A0
-	-r--r--r-- 1 root root 25 Apr 20 14:37 BB-HDMI-TDA998x-00A0
 	-r--r--r-- 1 root root  9 Apr 20 14:37 name
 	-r--r--r-- 1 root root 25 Apr 20 14:37 PB-SPI0-ETH-CLICK-00A0
 
 ### Problems detected?
 
-Yet to be determined... Still does not work!
-
-Most probable INT# signal needs a strong pull-up (circa 1.8K - 3.3K) on BBB Cape board.
+### Still does not work (most probable the BBB board used is a very old REV. => 0x0A5C)!
