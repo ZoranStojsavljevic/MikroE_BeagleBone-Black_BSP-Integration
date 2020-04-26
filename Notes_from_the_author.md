@@ -19,15 +19,16 @@ The major overlay examples could be found in the following folder/directory:
 .../MikroE_BeagleBone-Black_BSP-Integration/BBB-debian_buster/overlay_examples/
 
 	[vuser@fedora31-ssd overlay_examples]$ ls -al
-	total 40
-	drwxr-xr-x. 7 vuser vboxusers 4096 Apr 26 06:54 .
+	total 44
+	drwxr-xr-x. 8 vuser vboxusers 4096 Apr 26 12:32 .
 	drwxr-xr-x. 3 vuser vboxusers 4096 Apr 26 06:56 ..
 	drwxr-xr-x. 2 vuser vboxusers 4096 Apr 26 06:14 bb_cape4_pru
-	drwxr-xr-x. 3 vuser vboxusers 4096 Apr 23 08:13 eth_enc28j60
-	drwxr-xr-x. 3 vuser vboxusers 4096 Apr 26 06:42 i2c2_sc16is740
+	drwxr-xr-x. 2 vuser vboxusers 4096 Apr 26 07:44 i2c2_pcf8583
+	drwxr-xr-x. 3 vuser vboxusers 4096 Apr 26 07:18 i2c2_sc16is740
+	drwxr-xr-x. 2 vuser vboxusers 4096 Apr 26 12:26 Images
 	-rw-r--r--. 1 vuser vboxusers 1320 Apr  8 10:41 KERNEL.md
-	-rw-r--r--. 1 vuser vboxusers 2614 Apr 26 05:17 README.md
-	drwxr-xr-x. 2 vuser vboxusers 4096 Apr 19 13:42 rtc_pcf8583
+	-rw-r--r--. 1 vuser vboxusers 2153 Apr 26 11:57 README.md
+	drwxr-xr-x. 2 vuser vboxusers 4096 Apr 26 11:53 spi0_enc28j60
 	drwxr-xr-x. 2 vuser vboxusers 4096 Apr 24 03:08 spi0_sc16is740
 	-rw-r--r--. 1 vuser vboxusers 3304 Apr 26 06:31 uEnv.txt
 

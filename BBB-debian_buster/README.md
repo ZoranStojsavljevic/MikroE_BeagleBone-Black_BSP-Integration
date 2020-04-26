@@ -1,7 +1,7 @@
 ## BBB Debian Buster Environment Setup
 
-## WARNING: The BBB board revision used is 0A5C! Thus BBB board 000C should be obtained!!!
-## People are highly encouraged to use overlays in .../BBB-debian_buster/overlay_examples/
+### WARNING: The BBB board revision used is 0x0A5C! Thus BBB board 0x000C should be obtained!
+### People are highly encouraged to use overlays in .../BBB-debian_buster/overlay_examples/
 
 ### Explored Embedded HW Configuration:
 
@@ -116,13 +116,13 @@ Execute the following to build the custom menuconfig:
 
 Here are the custom changes for menuconfig, to be done in order to have proper kernel for the example:
 
-https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/BBB-debian_buster/MikroE_BBB_CLICK_Design/Systems_SW_Examples/README.md
+https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/BBB-debian_buster/overlay_examples/KERNEL.md
 
-https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/BBB-debian_buster/MikroE_BBB_CLICK_Design/Systems_SW_Examples/MIKROE-3349/README.md
+https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/BBB-debian_buster/overlay_examples/i2c2_sc16is740/MIKROE-3349/README.md
 
-### U-Boot uEnv.txt File
+### U-Boot Generic uEnv.txt file used (example overlays commented out by default)
 
-https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/BBB-debian_buster/uEnv.txt
+https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/BBB-debian_buster/overlay_examples/uEnv.txt
 
 ### BBB P9 header I2C2 Overlay (BB-I2C2-00A0.dts file)
 
@@ -231,55 +231,74 @@ After importing this overlay, the following is an outcome on the target BBB plat
 ### BB-SC16IS740 Silicon Overlay
 
 	$ cat BB-SC16IS740-00A0.dts
+```
+/*
+ * SPDX-License-Identifier: GPL-2.0-only
+ *
+ * Description taken from the following pointer:
+ * sc16is7xx uart i2c kernel module problems #2241
+ * https://github.com/raspberrypi/linux/issues/2241
+ *
+ * Example taken (and adapted for NXP sc16is740 silicon) from the following pointer:
+ * https://github.com/Ysurac/raspberry_kernel_mptcp/blob/master/arch/arm/boot/dts/overlays/sc16is750-i2c-overlay.dts
+ */
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "ti,beaglebone", "ti,beaglebone-black";
+
+	// identification
+	part-number = "BB-SC16IS740";
+	version = "00A0";
 
 	/*
-	 * SPDX-License-Identifier: GPL-2.0-only
-	 *
-	 * Description taken from the following pointer:
-	 * sc16is7xx uart i2c kernel module problems #2241
-	 * https://github.com/raspberrypi/linux/issues/2241
-	 *
-	 * Example taken (and adapted for NXP sc16is740 silicon) from the following pointer:
-	 * https://github.com/Ysurac/raspberry_kernel_mptcp/blob/master/arch/arm/boot/dts/overlays/sc16is750-i2c-overlay.dts
+	 * Helper to show loaded overlays under: /proc/device-tree/chosen/overlays/
 	 */
+	fragment@0 {
+		target-path="/";
+		__overlay__ {
 
-	/dts-v1/;
-	/plugin/;
-
-	/ {
-		compatible = "ti,beaglebone", "ti,beaglebone-black";
-
-		fragment@0 {
-			target = <&i2c2>;
-			__overlay__ {
-				#address-cells = <1>;
-				#size-cells = <0>;
-				status = "okay";
-
-				sc16is740: sc16is740@49 {
-					compatible = "nxp,sc16is740";
-					reg = <0x49>; /* address */
-					clocks = <&sc16is740_clk>;
-					interrupt-parent = <&gpio>;
-					interrupts = <48 2>; /* IRQ_TYPE_EDGE_FALLING */
-					gpio-controller;
-					#gpio-cells = <2>;
-
-					sc16is740_clk: sc16is740_clk {
-						compatible = "fixed-clock";
-						#clock-cells = <0>;
-						clock-frequency = <1843200>;
-					};
+			chosen {
+				overlays {
+					BB-SC16IS740-00A0 = "Thu Mar 12 19:35:36 2020";
 				};
 			};
 		};
+	};
 
-		__overrides__ {
-			int_pin = <&sc16is740>,"interrupts:0";
-			addr = <&sc16is740>,"reg:0";
-			xtal = <&sc16is740>,"clock-frequency:0";
+	fragment@1 {
+		target = <&i2c2>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "okay";
+
+			sc16is740: sc16is740@49 {
+				compatible = "nxp,sc16is740";
+				reg = <0x49>; /* address */
+				clocks = <&sc16is740_clk>;
+				interrupt-parent = <&gpio>;
+				interrupts = <48 2>; /* IRQ_TYPE_EDGE_FALLING */
+				#gpio-cells = <2>;
+
+				sc16is740_clk: sc16is740_clk {
+					compatible = "fixed-clock";
+					#clock-cells = <0>;
+					clock-frequency = <1843200>;
+				};
+			};
 		};
 	};
+
+	__overrides__ {
+		int_pin = <&sc16is740>,"interrupts:0";
+		addr = <&sc16is740>,"reg:0";
+		xtal = <&sc16is740>,"clock-frequency:0";
+	};
+};
+```
 
 ### Reading Loaded Overlays
 

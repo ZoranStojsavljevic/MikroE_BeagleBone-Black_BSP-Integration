@@ -1,7 +1,7 @@
 ## Problem Statement
 
-## WARNING: The BBB board revision used is 0A5C! Thus BBB board 000C should be obtained!!!
-## People are highly encouraged to use overlays in .../BBB-debian_buster/overlay_examples/
+### WARNING: The BBB board revision used is 0x0A5C! Thus BBB board 0x000C should be obtained!
+### People are highly encouraged to use overlays in .../BBB-debian_buster/overlay_examples/
 
 This file is created in the attempt to explain what are the reasons the last overlay does
 not work. Here, there are both I2C2 and SC16IS740 DTS overlays shown.

@@ -58,5 +58,5 @@ U-Boot Factory flash parameters:
 	board_rev=0A5C
 	board_serial=2813BBBK4802
 
-## The board Revision is A (0x0A5C), and MUST be at least Revision C (0x000C)!
-## This is why the root Device Tree does NOT work, produces Segmentation fault!
+### The board Revision is A (0x0A5C), and MUST be at least Revision C (0x000C)!
+### This is why the root Device Tree does NOT work, produces Segmentation fault!

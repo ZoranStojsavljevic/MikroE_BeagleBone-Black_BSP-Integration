@@ -1,7 +1,7 @@
 # PRELIMINARY RELEASE (UNDER THE DEVELOPMENT/CONSTRUCTION)
 
-## WARNING: The BBB board revision used is 0A5C! Thus BBB board 000C should be explored!!!
-## People are highly encouraged to use overlays in BBB-debian_buster/overlay_examples/
+### WARNING: The BBB board revision used is 0x0A5C! Thus BBB board 0x000C should be obtained!
+### People are highly encouraged to use overlays in BBB-debian_buster/overlay_examples/
 
 Please, do note that the structure of this GitHub Repo has been changed significantly.
 

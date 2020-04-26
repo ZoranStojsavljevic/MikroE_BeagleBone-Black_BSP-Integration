@@ -88,25 +88,12 @@
 			#address-cells = <1>;
 			#size-cells = <0>;
 			status = "okay";
-
-/*
-			cape_eeprom0: cape_eeprom0@54 {
-				compatible = "atmel,24c256";
-				reg = <0x54>;
-				#address-cells = <1>;
-				#size-cells = <1>;
-				cape0_data: cape_data@0 {
-					reg = <0 0x100>;
-				};
-			};
-^/
-
 			sc16is740: sc16is740@49 {
 				compatible = "nxp,sc16is740";
 				reg = <0x49>; /* address */
 				clocks = <&sc16is740_clk>;
-				// interrupt-parent = <&gpio>;
-				// interrupts = <48 2>; /* IRQ_TYPE_FALLING_EDGE */
+				interrupt-parent = <&gpio>;
+				interrupts = <48 2>; /* IRQ_TYPE_FALLING_EDGE */
 				#gpio-cells = <2>;
 
 				sc16is740_clk: sc16is740_clk {

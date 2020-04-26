@@ -1,4 +1,4 @@
-## MASTER EXAMPLE: MICROE-3349: I2C/ISP to serial I/F click
+## MASTER EXAMPLE: MICROE-3349: I2C/SPI to serial I/F click
 
 CLICK SPI/I2C to Serial Bridge Systems and Application SW, showing the CLICK Referent Design:
 
@@ -138,55 +138,74 @@ The BB-SC16IS740-00A0.dts file looks something like:
 #### BB-SC16IS740 Silicon Overlay
 
 	$ cat BB-SC16IS740-00A0.dts
+```
+/*
+ * SPDX-License-Identifier: GPL-2.0-only
+ *
+ * Description taken from the following pointer:
+ * sc16is7xx uart i2c kernel module problems #2241
+ * https://github.com/raspberrypi/linux/issues/2241
+ *
+ * Example taken (and adopted for NXP sc16is740 silicon) from the following pointer:
+ * https://github.com/Ysurac/raspberry_kernel_mptcp/blob/master/arch/arm/boot/dts/overlays/sc16is750-i2c-overlay.dts
+ */
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "ti,beaglebone", "ti,beaglebone-black";
+
+	// identification
+	part-number = "BB-SC16IS740";
+	version = "00A0";
 
 	/*
-	 * SPDX-License-Identifier: GPL-2.0-only
-	 *
-	 * Description taken from the following pointer:
-	 * sc16is7xx uart i2c kernel module problems #2241
-	 * https://github.com/raspberrypi/linux/issues/2241
-	 *
-	 * Example taken (and adapted for NXP sc16is740 silicon) from the following pointer:
-	 * https://github.com/Ysurac/raspberry_kernel_mptcp/blob/master/arch/arm/boot/dts/overlays/sc16is750-i2c-overlay.dts
+	 * Helper to show loaded overlays under: /proc/device-tree/chosen/overlays/
 	 */
+	fragment@0 {
+		target-path="/";
+		__overlay__ {
 
-	/dts-v1/;
-	/plugin/;
-
-	/ {
-		compatible = "ti,beaglebone", "ti,beaglebone-black";
-
-		fragment@0 {
-			target = <&i2c2>;
-			__overlay__ {
-				#address-cells = <1>;
-				#size-cells = <0>;
-				status = "okay";
-
-				sc16is740: sc16is740@49 {
-					compatible = "nxp,sc16is740";
-					reg = <0x49>; /* address */
-					clocks = <&sc16is740_clk>;
-					interrupt-parent = <&gpio>;
-					interrupts = <48 2>; /* IRQ_TYPE_EDGE_FALLING */
-					gpio-controller;
-					#gpio-cells = <2>;
-
-					sc16is740_clk: sc16is740_clk {
-						compatible = "fixed-clock";
-						#clock-cells = <0>;
-						clock-frequency = <1843200>;
-					};
+			chosen {
+				overlays {
+					BB-SC16IS740-00A0 = "Thu Mar 12 19:35:36 2020";
 				};
 			};
 		};
+	};
 
-		__overrides__ {
-			int_pin = <&sc16is740>,"interrupts:0";
-			addr = <&sc16is740>,"reg:0";
-			xtal = <&sc16is740>,"clock-frequency:0";
+	fragment@1 {
+		target = <&i2c2>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "okay";
+
+			sc16is740: sc16is740@49 {
+				compatible = "nxp,sc16is740";
+				reg = <0x49>; /* address */
+				clocks = <&sc16is740_clk>;
+				interrupt-parent = <&gpio>;
+				interrupts = <48 2>; /* IRQ_TYPE_EDGE_FALLING */
+				#gpio-cells = <2>;
+
+				sc16is740_clk: sc16is740_clk {
+					compatible = "fixed-clock";
+					#clock-cells = <0>;
+					clock-frequency = <1843200>;
+				};
+			};
 		};
 	};
+
+	__overrides__ {
+		int_pin = <&sc16is740>,"interrupts:0";
+		addr = <&sc16is740>,"reg:0";
+		xtal = <&sc16is740>,"clock-frequency:0";
+	};
+};
+```
 
 #### Step 7: Compiling and installing BB-SC16IS740-00A0.dts using DTC built-in kernel tree itself
 
