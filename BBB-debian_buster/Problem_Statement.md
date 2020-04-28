@@ -1,6 +1,11 @@
 ## Problem Statement
 
-### WARNING: The BBB board revision used is 0x0A5C! Thus BBB board 0x000C should be obtained!
+### WARNING: The BBB board revision used is 0x0A5C! Thus BBB board 0x000C should be used!
+
+The reason for that is the following:
+
+https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black_BSP-Integration/blob/master/BBB-debian_buster/overlay_examples/README.md
+
 ### People are highly encouraged to use overlays in .../BBB-debian_buster/overlay_examples/
 
 This file is created in the attempt to explain what are the reasons the last overlay does
@@ -8,15 +13,6 @@ not work. Here, there are both I2C2 and SC16IS740 DTS overlays shown.
 
 The best guess is that the last overlay, SC16IS740, does not bind to the kernel SC16IS740
 driver, thus there are no signs of /dev/ttySC0 or dev/ttySC1 in the /dev directory.
-
-### [Problem Statement] VCDBG to be implemented for the BBB and similar boards based upon TI silicons
-
-STRONG RECCOMENDATION to Texas Instruments:
-Here, the very important and powerfull tool should be placed as a Debian package for
-the TI silicons/platforms to gather debug info.
-
-The name of the tool is VCDBG. Source Code is not available, and it is placed under
-the proprietary licence.
 
 ### BBB P9 header I2C2 overlay (BB-I2C2-00A0.dts file)
 
