@@ -1,5 +1,5 @@
-dtc -@ -I dts -O dtb -o PB-SPI0-SC16IS740-00A0.dtbo PB-SPI0-SC16IS740-00A0.dts
-dtc -@ -I dts -O dtb -o PB-SC16IS740-TTYSC0-00A0.dtbo PB-SC16IS740-TTYSC0-00A0.dts
+dtc -@ -I dts -O dtb -o BB-SPI0-SC16IS740-00A0.dtbo BB-SPI0-SC16IS740-00A0.dts
+dtc -@ -I dts -O dtb -o BB-SC16IS740-TTYSC0-00A0.dtbo BB-SC16IS740-TTYSC0-00A0.dts
 
 ls -al /proc/device-tree/chosen/overlays/
 

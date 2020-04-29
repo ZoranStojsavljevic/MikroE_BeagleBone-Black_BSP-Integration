@@ -22,8 +22,8 @@
 
 			chosen {
 				overlays {
-					// PB-I2C2-RTC-CLICK = __TIMESTAMP__;
-					PB-I2C2-RTC-CLICK = "Thu Mar 12 19:35:36 2020";
+					// BB-I2C2-RTC-CLICK = __TIMESTAMP__;
+					BB-I2C2-RTC-CLICK = "Thu Mar 12 19:35:36 2020";
 				};
 			};
 		};

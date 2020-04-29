@@ -144,7 +144,7 @@ From the file in .../arch/arm/boot/dts/am335x-bone-common.dtsi
 	};
 
 #### RTC-click Overlay
-https://github.com/beagleboard/bb.org-overlays/blob/master/src/arm/PB-I2C2-RTC-CLICK.dts
+https://github.com/beagleboard/bb.org-overlays/blob/master/src/arm/BB-I2C2-RTC-CLICK.dts
 
 	/*
 	 * Copyright (C) 2017 Robert Nelson <robertcnelson@gmail.com>
@@ -170,7 +170,7 @@ https://github.com/beagleboard/bb.org-overlays/blob/master/src/arm/PB-I2C2-RTC-C
 
 				chosen {
 					overlays {
-						PB-I2C2-RTC-CLICK = "Thu Mar 12 19:35:36 2020";
+						BB-I2C2-RTC-CLICK = "Thu Mar 12 19:35:36 2020";
 					};
 				};
 			};
@@ -203,7 +203,7 @@ https://github.com/beagleboard/bb.org-overlays/blob/master/src/arm/PB-I2C2-RTC-C
 		};
 	};
 
-#### Combined BB-I2C2-00A0 and PB-I2C2-RTC-CLICK Overlays
+#### Combined BB-I2C2-00A0 and BB-I2C2-RTC-CLICK Overlays
 https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/BBB-debian_buster/overlay_examples/i2c2_pcf8583/BB-I2C2-PCF8523-00A0.dts
 
 	/*

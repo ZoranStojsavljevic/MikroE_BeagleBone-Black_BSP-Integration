@@ -20,7 +20,7 @@
 	compatible = "ti,beaglebone", "ti,beaglebone-black", "ti,beaglebone-green";
 
 	/* identification */
-	part-number = "PB-SPI0-ETH-CLICK";
+	part-number = "BB-SPI0-ETH-CLICK";
 	version = "00A0";
 
 	/* state the resources this cape uses */
@@ -47,8 +47,8 @@
 
 			chosen {
 				overlays {
-					// PB-SPI0-ETH-CLICK-00A0 = __TIMESTAMP__;
-					PB-SPI0-ETH-CLICK-00A0 = "Mon Mar 30 15:08:20 2020";
+					// BB-SPI0-ETH-CLICK-00A0 = __TIMESTAMP__;
+					BB-SPI0-ETH-CLICK-00A0 = "Mon Mar 30 15:08:20 2020";
 				};
 			};
 		};

@@ -46,7 +46,7 @@ https://download.mikroe.com/documents/add-on-boards/click/eth/eth-click-manual-v
 	compatible = "ti,beaglebone", "ti,beaglebone-black", "ti,beaglebone-green";
 
 	/* identification */
-	part-number = "PB-SPI0-ETH-CLICK";
+	part-number = "BB-SPI0-ETH-CLICK";
 	version = "00A0";
 
 	/* state the resources this cape uses */
@@ -68,8 +68,8 @@ https://download.mikroe.com/documents/add-on-boards/click/eth/eth-click-manual-v
 
 			chosen {
 				overlays {
-					// PB-SPI0-ETH-CLICK-00A0 = __TIMESTAMP__;
-					PB-SPI0-ETH-CLICK-00A0 = "Mon Mar 30 15:08:20 2020";
+					// BB-SPI0-ETH-CLICK-00A0 = __TIMESTAMP__;
+					BB-SPI0-ETH-CLICK-00A0 = "Mon Mar 30 15:08:20 2020";
 				};
 			};
 		};
@@ -183,7 +183,7 @@ The loaded overlays could be found in the following directory: /proc/device-tree
 	drwxr-xr-x 2 root root  0 Apr 20 14:37 .
 	drwxr-xr-x 3 root root  0 Apr 20 14:37 ..
 	-r--r--r-- 1 root root  9 Apr 20 14:37 name
-	-r--r--r-- 1 root root 25 Apr 20 14:37 PB-SPI0-ETH-CLICK-00A0
+	-r--r--r-- 1 root root 25 Apr 20 14:37 BB-SPI0-ETH-CLICK-00A0
 
 ### Problems detected?
 
