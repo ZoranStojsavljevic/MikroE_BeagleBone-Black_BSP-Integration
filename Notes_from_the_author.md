@@ -1,5 +1,10 @@
 ### Notes from the author
 
+Please, do note that The BBB REV. used is old one:
+
+        root@arm:/home/debian# /opt/scripts/tools/version.sh | grep eeprom
+        eeprom:[A335BNLT0A5C2813BBBK4802]
+
 Please, do note that this repo is in PRELIMINARY design stage, and it is not yet completed. It is released to the
 public as General Archtecture for MikroE CLICK design, in attempt to integrate CLICK HW to BeagleBone Black as the
 extension for the BBB usage.
@@ -23,14 +28,20 @@ The major overlay examples could be found in the following folder/directory:
 	drwxr-xr-x. 8 vuser vboxusers 4096 Apr 26 12:32 .
 	drwxr-xr-x. 3 vuser vboxusers 4096 Apr 26 06:56 ..
 	drwxr-xr-x. 2 vuser vboxusers 4096 Apr 26 06:14 bb_cape4_pru
-	drwxr-xr-x. 2 vuser vboxusers 4096 Apr 26 07:44 i2c2_pcf8583
+	drwxr-xr-x. 2 vuser vboxusers 4096 Apr 26 07:44 i2c2_pcf8583 <<==== Working Example
 	drwxr-xr-x. 3 vuser vboxusers 4096 Apr 26 07:18 i2c2_sc16is740
 	drwxr-xr-x. 2 vuser vboxusers 4096 Apr 26 12:26 Images
 	-rw-r--r--. 1 vuser vboxusers 1320 Apr  8 10:41 KERNEL.md
 	-rw-r--r--. 1 vuser vboxusers 2153 Apr 26 11:57 README.md
-	drwxr-xr-x. 2 vuser vboxusers 4096 Apr 26 11:53 spi0_enc28j60
+	drwxr-xr-x. 2 vuser vboxusers 4096 Apr 26 11:53 spi0_enc28j60 <<=== Working Example
 	drwxr-xr-x. 2 vuser vboxusers 4096 Apr 24 03:08 spi0_sc16is740
 	-rw-r--r--. 1 vuser vboxusers 3304 Apr 26 06:31 uEnv.txt
+
+Two working CLICK examples so far:
+
+![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) i2c2_pcf8583 <<==== Working Example
+
+![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) spi0_enc28j60 <<=== Working Example
 
 Please, do note that file uEnv.txt is a master example, used in all configs with proper overlay file(s) enabled!
 

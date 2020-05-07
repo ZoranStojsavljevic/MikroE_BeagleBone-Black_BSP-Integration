@@ -2,6 +2,9 @@
 
 ### WARNING: The BBB board revision used is 0x0A5C! Thus BBB board 0x000C should be used!
 
+        root@arm:/home/debian# /opt/scripts/tools/version.sh | grep eeprom
+        eeprom:[A335BNLT0A5C2813BBBK4802]
+
 The reason for that is the following:
 
 https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black_BSP-Integration/blob/master/BBB-debian_buster/overlay_examples/README.md
