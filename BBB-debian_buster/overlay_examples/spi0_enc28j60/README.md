@@ -13,7 +13,7 @@ Since SPI0 is used, MikroBus 3 must be used (MikroBus 3 is the only one using SP
 
 ### Explored Embedded HW Configuration:
 
-![](../Images/beaglebone-ISP0-ETH-cape.jpg)
+![](../Images/beaglebone-SPI0-ETH-cape.jpg)
 
 CLICK's HW scheme is shown here:
 
@@ -21,12 +21,11 @@ https://download.mikroe.com/documents/add-on-boards/click/eth/eth-click-manual-v
 
 ### Cape4 Rework, which is necessary for MikroBus 3 to work with silicon enc28j60
 
-Please, nake sure to change the UART3 jumpers/0 Ohm resistors to SPI0 Mode:
+Please, make sure to change the UART3 jumpers/0 Ohm resistors to SPI0 Mode:
 
 ![](../Images/mikroe_spi.png)
 
 ### Overlay used for the HW configuration
-
 ```
 /*
  * Copyright (C) 2018 Robert Nelson <robertcnelson@gmail.com>
@@ -161,7 +160,6 @@ Please, nake sure to change the UART3 jumpers/0 Ohm resistors to SPI0 Mode:
 	};
 };
 ```
-
 ### Kernel ETH Driver Support
 
 	  │ CONFIG_ENC28J60:
