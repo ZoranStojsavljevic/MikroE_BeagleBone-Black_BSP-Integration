@@ -1,12 +1,13 @@
 /*
  * Copyright (C) 2018 Robert Nelson <robertcnelson@gmail.com>
- * Copyright (C) 2020 Zoran Stojsavljevic <zoran.stojsavljevic@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
  * published by the Free Software Foundation.
  *
- * https://download.mikroe.com/documents/add-on-boards/click/eth/eth-click-manual-v102.pdf
+ * https://www.mikroe.com/eth-click
+ * https://download.mikroe.com/documents/add-on-boards/click/eth/eth-click-manual-v100.pdf
+ ^ https://github.com/beagleboard/bb.org-overlays/edit/master/src/arm/BB-mBC3-ETH-CLICK.dts
  *
  * Make sure to change the UART3 jumpers to SPI0 Mode...
  */
@@ -22,7 +23,7 @@
 	compatible = "ti,beaglebone", "ti,beaglebone-black", "ti,beaglebone-green";
 
 	/* identification */
-	part-number = "BB-SPI0-SC16IS740";
+	part-number = "BB-mBC3-ETH-CLICK";
 	version = "00A0";
 
 	/* state the resources this cape uses */
@@ -44,8 +45,8 @@
 
 			chosen {
 				overlays {
-					// BB-SPI0-SC16IS740-00A0 = __TIMESTAMP__;
-					BB-SPI0-SC16IS740-00A0 = "Fri May  1 00:45:28 2020";
+					// BB-mBC3-ETH-CLICK-00A0 = __TIMESTAMP__;
+					BB-mBC3-ETH-CLICK-00A0 = "Fri May  1 00:45:28 2020";
 				};
 			};
 		};
@@ -79,7 +80,7 @@
 	fragment@2 {
 		target = <&am33xx_pinmux>;
 		__overlay__ {
-			bb_gpio_pins: pinmux-bb-gpio-pins {
+			mbc3_gpio_pins: pinmux-mbc3-gpio-pins {
 				pinctrl-single,pins = <0x0000008c 0x0000002f 0x00000028 0x0000002f>;
 				// pinctrl-single,pins = <
 				//	AM33XX_IOPAD(0x088C, PIN_INPUT | MUX_MODE7 ) /* P8_18 (V12) gpmc_clk.gpio2[1] INT */
@@ -87,7 +88,7 @@
 				// >;
 			};
 
-			bb_spi0_pins: pinmux-bb-spi0-pins {
+			mbc_spi0_pins: pinmux-mbc-spi0-pins {
 				pinctrl-single,pins = <0x00000150 0x00000028 0x00000154 0x00000028 0x00000158 0x00000028 0x0000015c 0x00000028>;
 				// pinctrl-single,pins = <
 				//	AM33XX_IOPAD(0x0950, PIN_INPUT | MUX_MODE0 ) /* P9_22 (A17) spi0_sclk.spi0_sclk */
@@ -106,52 +107,29 @@
 		__overlay__ {
 			status = "okay";
 			pinctrl-names = "default";
-			pinctrl-0 = <&bb_spi0_pins>;
+			pinctrl-0 = <&mbc_spi0_pins>;
 
-			/* Configuration part */
-			spi-max-frequency = <4000000>;
 			channel@0{ status = "disabled"; };
 			channel@1{ status = "disabled"; };
 		};
 	};
 
-	/* the clock/oscillator */
-	// fragment@4 {
-	//	target-path = "/clocks";
-	//	__overlay__ {
-	//		/* external oscillator of sc16is740 on SPI0.0 */
-	//		ttysc0_osc: ttysc0_osc {
-	//			compatible = "fixed-clock";
-	//			#clock-cells = <0>;
-	//			clock-frequency  = <1843200>;
-	//		};
-	//	};
-	// };
-
-	/* the spi config binding everything together */
 	fragment@4 {
 		target = <&spi0>;
 		__overlay__ {
-			/* needed to avoid dtc warning */
 			#address-cells = <1>;
 			#size-cells = <0>;
-			status = "okay";
 
-			sc16is740: sc16is740@0 {
-				compatible = "nxp,sc16is7xx";
-				reg = <0x0>; /* address */
+			enc28j60: ethernet@0 {
+				compatible = "microchip,enc28j60";
 				pinctrl-names = "default";
-				pinctrl-0 = <&bb_gpio_pins>;
-				clocks = <&sc16is740_clk>;
+				pinctrl-0 = <&mbc3_gpio_pins>;
+				reg = <0x0>;
 				interrupt-parent = <&gpio2>;
 				interrupts = <1 2>; // <1 IRQ_TYPE_EDGE_FALLING>
 				// interrupts = <1 IRQ_TYPE_EDGE_FALLING>;
-
-				sc16is740_clk: sc16is740_clk {
-					compatible = "fixed-clock";
-					#clock-cells = <0>;
-					clock-frequency = <1843200>;
-				};
+				spi-max-frequency = <16000000>;
+				local-mac-address = [ 00 00 00 00 00 00 ];
 			};
 		};
 	};
