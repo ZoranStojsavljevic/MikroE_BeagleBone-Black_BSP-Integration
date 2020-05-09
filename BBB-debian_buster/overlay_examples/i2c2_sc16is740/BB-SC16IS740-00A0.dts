@@ -45,8 +45,8 @@
 				compatible = "nxp,sc16is740";
 				reg = <0x49>; /* address */
 				clocks = <&sc16is740_clk>;
-				interrupt-parent = <&gpio>;
-				interrupts = <48 2>; /* IRQ_TYPE_EDGE_FALLING */
+				interrupt-parent = <&gpio1>;
+				interrupts = <16 2>; /* IRQ_TYPE_EDGE_FALLING */
 				#gpio-cells = <2>;
 
 				sc16is740_clk: sc16is740_clk {
@@ -56,11 +56,5 @@
 				};
 			};
 		};
-	};
-
-	__overrides__ {
-		int_pin = <&sc16is740>,"interrupts:0";
-		addr = <&sc16is740>,"reg:0";
-		xtal = <&sc16is740>,"clock-frequency:0";
 	};
 };

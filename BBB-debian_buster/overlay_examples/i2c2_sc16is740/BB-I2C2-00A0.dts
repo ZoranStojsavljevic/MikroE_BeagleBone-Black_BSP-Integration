@@ -1,5 +1,5 @@
 /*
- * Virtual cape for I2C2 on connector pins P9.12 P9.19 P9.20
+ * Virtual cape for I2C2 on connector pins P9.19 P9.20
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -18,7 +18,6 @@
 
 	// resources this cape uses
 	exclusive-use =
-		"P9.12",	// GPIO1_28 = GPIO 60
 		"P9.19",	// i2c2_sda
 		"P9.20",	// i2c2_scl
 		"i2c2";		// hardware ip used
@@ -44,7 +43,6 @@
 	fragment@1 {
 		target = <&ocp>;
 		__overlay__ {
-			P9_12_pinmux { status = "disabled"; };	/* GPIO 60 */
 			P9_19_pinmux { status = "disabled"; };	/* i2c2_scl */
 			P9_20_pinmux { status = "disabled"; };	/* i2c2_sda */
 		};
@@ -55,12 +53,9 @@
 		__overlay__ {
 			bb_i2c2_pins: pinmux_bb_i2c2_pins {
 				pinctrl-single,pins = <
-					0x078 0x1f	/* (PIN_OUTPUT_PULLUP | MUX_MODE7) GPIO1_28 */
 					0x17c 0x73	/* i2c2_sda, SLEWCTRL_SLOW | INPUT_PULLUP | MODE3 */
 					0x178 0x73	/* i2c2_scl, SLEWCTRL_SLOW | INPUT_PULLUP | MODE3 */
 				>;
-				linux,phandle = <0x00000001>;
-				phandle = <0x00000001>;
 			};
 		};
 	};
@@ -79,15 +74,6 @@
 			#size-cells = <0>;
 
 			/* add any i2c devices on the bus here */
-
-			// commented out example of a touchscreen (taken from BB-BONE-LCD7-01-00A4) */
-			// maxtouch@4a {
-			//	compatible = "mXT224";
-			//	reg = <0x4a>;
-			//	interrupt-parent = <&gpio4>;
-			//	interrupts = <19 0x0>;
-			//	atmel,irq-gpio = <&gpio4 19 0>;
-			// };
 		};
 	};
 };

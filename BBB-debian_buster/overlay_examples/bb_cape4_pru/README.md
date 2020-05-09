@@ -1,5 +1,9 @@
 ### BBB MikroBus CAPE4
 
+Manual for the MikroBus Cape4 is located here:
+
+https://download.mikroe.com/documents/add-on-boards/click-shields/mikrobus-cape/beagleboane-mikrobus-cape-manual-v100.pdf
+
 ![](../Images/beaglebone-mikrobus-cape.jpg)
 
 Please, do note the following schematics of BBB MikroBus Cape4:
@@ -10,7 +14,7 @@ Number of SPIs represented on this image is assymetric, so with the red circles 
 are 3 SPI1 shown (1st, 2nd and 4th slots, with different CSs), and with the blue ONLY
 one SPI2 (SPI0) shown (3rd slot).
 
-Please, do note that position of MicroBuses are dependant of which SPIX is actually used!
+Please, do note that position of MikroBuses are dependant of which SPIX is actually used!
 
 ### To Be Done
 

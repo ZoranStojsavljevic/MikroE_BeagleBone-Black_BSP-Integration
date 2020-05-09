@@ -109,7 +109,7 @@
 			pinctrl-0 = <&bb_spi0_pins>;
 
 			/* Configuration part */
-			spi-max-frequency = <4000000>;
+			spi-max-frequency = <16000000>;
 			channel@0{ status = "disabled"; };
 			channel@1{ status = "disabled"; };
 		};
@@ -138,7 +138,7 @@
 			status = "okay";
 
 			sc16is740: sc16is740@0 {
-				compatible = "nxp,sc16is7xx";
+				compatible = "nxp,sc16is740";
 				reg = <0x0>; /* address */
 				pinctrl-names = "default";
 				pinctrl-0 = <&bb_gpio_pins>;

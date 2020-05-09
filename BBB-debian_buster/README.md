@@ -10,6 +10,8 @@ https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black_BSP-Integration/bl
 
 ### Explored Embedded HW Configuration:
 
+MikroBus used is MikroBus 1.
+
 ![](../MikroE_BBB_CLICK_Design/Images/beaglebone-mikrobus-cape.jpg)
 ![](../MikroE_BBB_CLICK_Design/Images/beaglebone-mikrobus-cape-SC16IS740.jpg)
 
@@ -134,7 +136,7 @@ https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/bl
 	$ cat BB-I2C2-00A0.dts
 
 	/*
-	 * Virtual cape for I2C2 on connector pins P9.12 P9.19 P9.20
+	 * Virtual cape for I2C2 on connector pins P9.19 P9.20
 	 *
 	 * This program is free software; you can redistribute it and/or modify
 	 * it under the terms of the GNU General Public License version 2 as
@@ -205,7 +207,7 @@ https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/bl
 				pinctrl-0 = <&bb_i2c2_pins>;
 
 				/* this is the configuration part */
-				clock-frequency = <100000>;
+				clock-frequency = <400000>;
 
 				#address-cells = <1>;
 				#size-cells = <0>;
@@ -295,12 +297,6 @@ After importing this overlay, the following is an outcome on the target BBB plat
 				};
 			};
 		};
-	};
-
-	__overrides__ {
-		int_pin = <&sc16is740>,"interrupts:0";
-		addr = <&sc16is740>,"reg:0";
-		xtal = <&sc16is740>,"clock-frequency:0";
 	};
 };
 ```

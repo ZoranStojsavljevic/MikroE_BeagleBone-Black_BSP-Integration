@@ -1,5 +1,5 @@
 /*
- * Virtual cape for I2C2 on connector pins P9.12 P9.19 P9.20
+ * Virtual cape for I2C2 on connector pins P9.12 P9.15 P9.19 P9.20
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -18,6 +18,8 @@
 
 	// resources this cape uses
 	exclusive-use =
+		"P9.12",	// RESET
+		"P9_15",	// INT
 		"P9.19",	// i2c2_sda
 		"P9.20",	// i2c2_scl
 		"i2c2";		// hardware ip used
@@ -31,7 +33,7 @@
 
 			chosen {
 				overlays {
-					BB-I2C2-SC16IS740-00A0 = "Thu Mar 12 19:35:36 2020";
+					BB-I2C2-SC16IS740-00A0 = "Fri May 08 19:35:36 2020";
 				};
 			};
 		};
@@ -53,14 +55,17 @@
 	fragment@2 {
 		target = <&am33xx_pinmux>;
 		__overlay__ {
+			bb_gpio_pins: pinmux_bb_gpio_pins {
+				pinctrl-single,pins = <
+					0x078 0x2f	/* (PIN_INPUT | MUX_MODE7) -> P9_12 */
+					0x040 0x2f	/* (PIN_INPUT | MUX_MODE7) -> P9_15 */
+				>;
+			};
 			bb_i2c2_pins: pinmux_bb_i2c2_pins {
 				pinctrl-single,pins = <
-					0x078 0x28	/* (PIN_INPUT | MUX_MODE7) GPIO1_28 */
 					0x17c 0x73	/* i2c2_sda, SLEWCTRL_SLOW | INPUT_PULLUP | MODE3 */
 					0x178 0x73	/* i2c2_scl, SLEWCTRL_SLOW | INPUT_PULLUP | MODE3 */
 				>;
-				linux,phandle = <0x00000001>;
-				phandle = <0x00000001>;
 			};
 		};
 	};
@@ -73,7 +78,7 @@
 			pinctrl-0 = <&bb_i2c2_pins>;
 
 			/* this is the configuration part */
-			clock-frequency = <100000>;
+			clock-frequency = <400000>;
 
 			#address-cells = <1>;
 			#size-cells = <0>;
@@ -91,6 +96,8 @@
 
 			sc16is740: sc16is740@49 {
 				compatible = "nxp,sc16is740";
+				pinctrl-names = "default";
+				pinctrl-0 = <&bb_gpio_pins>;
 				reg = <0x49>; /* address */
 				clocks = <&sc16is740_clk>;
 				interrupt-parent = <&gpio1>;
