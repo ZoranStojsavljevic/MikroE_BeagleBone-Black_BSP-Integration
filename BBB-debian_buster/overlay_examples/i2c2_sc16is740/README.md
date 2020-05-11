@@ -12,8 +12,8 @@ https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black_BSP-Integration/bl
 
 MikroBus used is MikroBus 1.
 
-![](../MikroE_BBB_CLICK_Design/Images/beaglebone-mikrobus-cape.jpg)
-![](../MikroE_BBB_CLICK_Design/Images/beaglebone-mikrobus-cape-SC16IS740.jpg)
+![](../../../MikroE_BBB_CLICK_Design/Images/beaglebone-mikrobus-cape.jpg)
+![](../../../MikroE_BBB_CLICK_Design/Images/beaglebone-mikrobus-cape-SC16IS740.jpg)
 
 ### U-boot 04.2019 Overlays
 
