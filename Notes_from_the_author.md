@@ -1,9 +1,9 @@
 ### Notes from the author
 
-Please, do note that The BBB REV. used is old one:
+The BBB board Revision used is REV. A (0x0A5C).
 
-        root@arm:/home/debian# /opt/scripts/tools/version.sh | grep eeprom
-        eeprom:[A335BNLT0A5C2813BBBK4802]
+	root@arm:/home/debian# /opt/scripts/tools/version.sh | grep eeprom
+	eeprom:[A335BNLT0A5C2813BBBK4802]
 
 Please, do note that this repo is in PRELIMINARY design stage, and it is not yet completed. It is released to the
 public as General Archtecture for MikroE CLICK design, in attempt to integrate CLICK HW to BeagleBone Black as the
@@ -34,14 +34,16 @@ The major overlay examples could be found in the following folder/directory:
 	-rw-r--r--. 1 vuser vboxusers 1320 Apr  8 10:41 KERNEL.md
 	-rw-r--r--. 1 vuser vboxusers 2153 Apr 26 11:57 README.md
 	drwxr-xr-x. 2 vuser vboxusers 4096 Apr 26 11:53 spi0_enc28j60 <<=== Working Example
-	drwxr-xr-x. 2 vuser vboxusers 4096 Apr 24 03:08 spi0_sc16is740
+	drwxr-xr-x. 2 vuser vboxusers 4096 Apr 24 03:08 spi0_sc16is740 <<=== Working Example
 	-rw-r--r--. 1 vuser vboxusers 3304 Apr 26 06:31 uEnv.txt
 
-Two working CLICK examples so far:
+Working CLICK examples so far:
 
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) i2c2_pcf8583 <<==== Working Example
 
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) spi0_enc28j60 <<=== Working Example
+
+![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) spi0_sc16is740 <<=== Working Example
 
 Please, do note that file uEnv.txt is a master example, used in all configs with proper overlay file(s) enabled!
 

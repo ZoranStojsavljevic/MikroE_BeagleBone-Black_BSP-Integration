@@ -318,11 +318,9 @@ usb1: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
 
 ### Problems detected?
 
-BBB REV. used is old revision 0x0A5C (retrieved with command:
+BBB REV. used is old revision 0x0A5C (retrieved with command):
 
 	sudo /opt/scripts/tools/version.sh | grep eeprom
 
 	root@arm:/home/debian# /opt/scripts/tools/version.sh | grep eeprom
 	eeprom:[A335BNLT0A5C2813BBBK4802]
-
-### The BBB board used is a very old REV. => 0x0A5C, the latest REV. 0x000C should be used!

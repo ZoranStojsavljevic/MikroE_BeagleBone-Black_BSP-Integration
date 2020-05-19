@@ -1,12 +1,12 @@
 ## BBB Debian Buster Environment Setup
 
-### WARNING: The BBB board revision used is 0x0A5C! Thus BBB board 0x000C should be used!
+	The BBB board Revision used is REV. A (0x0A5C).
 
 The reason for that is the following:
 
 https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black_BSP-Integration/blob/master/BBB-debian_buster/overlay_examples/README.md
 
-### People are highly encouraged to use overlays in .../BBB-debian_buster/overlay_examples/
+### People are highly encouraged to use EXAMPLE overlays in .../BBB-debian_buster/overlay_examples/
 
 ### Explored Embedded HW Configuration:
 

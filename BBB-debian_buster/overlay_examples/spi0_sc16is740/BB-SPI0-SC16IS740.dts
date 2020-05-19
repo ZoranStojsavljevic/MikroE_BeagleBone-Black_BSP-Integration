@@ -14,9 +14,9 @@
 /dts-v1/;
 /plugin/;
 
-// #include <dt-bindings/gpio/gpio.h>
-// #include <dt-bindings/pinctrl/am33xx.h>
-// #include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/pinctrl/am33xx.h>
+#include <dt-bindings/interrupt-controller/irq.h>
 
 / {
 	compatible = "ti,beaglebone", "ti,beaglebone-black", "ti,beaglebone-green";
@@ -44,8 +44,7 @@
 
 			chosen {
 				overlays {
-					// BB-SPI0-SC16IS740-00A0 = __TIMESTAMP__;
-					BB-SPI0-SC16IS740-00A0 = "Fri May 12 00:45:28 2020";
+					BB-SPI0-SC16IS740 = __TIMESTAMP__;
 				};
 			};
 		};
@@ -61,7 +60,6 @@
 
 			/* Click 3 */
 			P9_17_pinmux { status = "disabled"; };	/* CS - spi0_cs0 */
-
 			P9_22_pinmux { status = "disabled"; };	/* SCK - spi0_sclk */
 			P9_21_pinmux { status = "disabled"; };	/* MISO - spi0_d0 */
 			P9_18_pinmux { status = "disabled"; };	/* MOSI - spi0_d1 */
@@ -69,10 +67,10 @@
 			// P8_19_pinmux { status = "disabled"; };	/* PWM - ehrpwm2a */
 			P8_18_pinmux { status = "disabled"; };	/* INT - gpio2[1] */
 
-			//P9_26_pinmux { status = "disabled"; };	/* RX - uart1_rxd */
-			//P9_24_pinmux { status = "disabled"; };	/* TX - uart1_txd */
-			//P9_19_pinmux { status = "disabled"; };	/* SCL */
-			//P9_20_pinmux { status = "disabled"; };	/* SDA */
+			// P9_26_pinmux { status = "disabled"; };	/* RX - uart1_rxd */
+			// P9_24_pinmux { status = "disabled"; };	/* TX - uart1_txd */
+			// P9_19_pinmux { status = "disabled"; };	/* SCL */
+			// P9_20_pinmux { status = "disabled"; };	/* SDA */
 		};
 	};
 
@@ -80,22 +78,20 @@
 		target = <&am33xx_pinmux>;
 		__overlay__ {
 			bb_gpio_pins: pinmux-bb-gpio-pins {
-				pinctrl-single,pins = <0x0000008c 0x0000002f 0x00000028 0x0000002f>;
-				// pinctrl-single,pins = <
-				//	AM33XX_IOPAD(0x088C, PIN_INPUT | MUX_MODE7 ) /* P8_18 (V12) gpmc_clk.gpio2[1] INT */
-				//	AM33XX_IOPAD(0x0828, PIN_INPUT | MUX_MODE7 ) /* P8_14 (T11) gpmc_ad10.gpio0[26] RESET */
-				// >;
+				pinctrl-single,pins = <
+					AM33XX_IOPAD(0x088C, PIN_INPUT | MUX_MODE7 ) /* P8_18 (V12) gpmc_clk.gpio2[1] INT */
+					AM33XX_IOPAD(0x0828, PIN_INPUT | MUX_MODE7 ) /* P8_14 (T11) gpmc_ad10.gpio0[26] RESET */
+				>;
 			};
 
 			bb_spi0_pins: pinmux-bb-spi0-pins {
-				pinctrl-single,pins = <0x00000150 0x00000028 0x00000154 0x00000028 0x00000158 0x00000028 0x0000015c 0x00000028>;
-				// pinctrl-single,pins = <
-				//	AM33XX_IOPAD(0x0950, PIN_INPUT | MUX_MODE0 ) /* P9_22 (A17) spi0_sclk.spi0_sclk */
-				//	AM33XX_IOPAD(0x0954, PIN_INPUT | MUX_MODE0 ) /* P9_21 (B17) spi0_d0.spi0_d0 */
-				//	AM33XX_IOPAD(0x0958, PIN_INPUT | MUX_MODE0 ) /* P9_18 (B16) spi0_d1.spi0_d1 */
-				//	/* Click 3 */
-				//	AM33XX_IOPAD(0x095c, PIN_INPUT | MUX_MODE0 ) /* P9_17 (A16) spi0_cs0.spi0_cs0 */
-				// >;
+				pinctrl-single,pins = <
+					/* Click 3 */
+					AM33XX_IOPAD(0x0950, PIN_INPUT | MUX_MODE0 ) /* P9_22 (A17) spi0_sclk.spi0_sclk */
+					AM33XX_IOPAD(0x0954, PIN_INPUT | MUX_MODE0 ) /* P9_21 (B17) spi0_d0.spi0_d0 */
+					AM33XX_IOPAD(0x0958, PIN_INPUT | MUX_MODE0 ) /* P9_18 (B16) spi0_d1.spi0_d1 */
+					AM33XX_IOPAD(0x095c, PIN_INPUT | MUX_MODE0 ) /* P9_17 (A16) spi0_cs0.spi0_cs0 */
+				>;
 			};
 		};
 	};

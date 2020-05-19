@@ -18,4 +18,5 @@ Please, do note that position of MikroBuses are dependant of which SPIX is actua
 
 ### To Be Done
 
-DTS overlay yet to be developed. This task is of low priority!
+[1] MikroBus kernel.org Kernel Driver to be developed, still in the initial discussion!
+[2] CAPE4 DTS overlay (if ?) yet to be developed. This task is of low priority!

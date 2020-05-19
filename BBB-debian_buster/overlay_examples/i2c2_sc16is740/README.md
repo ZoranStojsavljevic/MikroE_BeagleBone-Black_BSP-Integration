@@ -1,6 +1,6 @@
 ## BBB Debian Buster Environment Setup
 
-### WARNING: The BBB board revision used is 0x0A5C! Thus BBB board 0x000C should be used!
+The BBB board Revision used is REV. A (0x0A5C).
 
 The reason for that is the following:
 

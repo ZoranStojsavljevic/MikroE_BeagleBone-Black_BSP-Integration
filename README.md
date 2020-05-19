@@ -1,9 +1,9 @@
 ## PRELIMINARY RELEASE (UNDER THE DEVELOPMENT/CONSTRUCTION)
 
-### WARNING: The BBB board revision used is 0x0A5C! Thus BBB board 0x000C should be used!
+The BBB board Revision used is REV. A (0x0A5C).
 
-        root@arm:/home/debian# /opt/scripts/tools/version.sh | grep eeprom
-        eeprom:[A335BNLT0A5C2813BBBK4802]
+	root@arm:/home/debian# /opt/scripts/tools/version.sh | grep eeprom
+	eeprom:[A335BNLT0A5C2813BBBK4802]
 
 The reason for that is the following:
 

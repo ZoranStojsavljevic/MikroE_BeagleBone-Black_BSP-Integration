@@ -73,12 +73,12 @@
 	fragment@3 {
 		target = <&i2c2>;
 		__overlay__ {
-			status = "okay";
 			pinctrl-names = "default";
 			pinctrl-0 = <&bb_i2c2_pins>;
 
 			/* this is the configuration part */
 			clock-frequency = <400000>;
+			status = "disabled";
 
 			#address-cells = <1>;
 			#size-cells = <0>;
@@ -103,8 +103,9 @@
 				interrupt-parent = <&gpio1>;
 				interrupts = <16 2>; /* IRQ_TYPE_FALLING_EDGE */
 				#gpio-cells = <2>;
+				clock-frequency = <400000>;
 
-				sc16is740_clk: sc16is740_clk {
+				sc16is740_clk: sc16is740_0_clk {
 					compatible = "fixed-clock";
 					#clock-cells = <0>;
 					clock-frequency = <1843200>;
