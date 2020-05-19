@@ -29,7 +29,7 @@ The major overlay examples could be found in the following folder/directory:
 	drwxr-xr-x. 3 vuser vboxusers 4096 Apr 26 06:56 ..
 	drwxr-xr-x. 2 vuser vboxusers 4096 Apr 26 06:14 bb_cape4_pru
 	drwxr-xr-x. 2 vuser vboxusers 4096 Apr 26 07:44 i2c2_pcf8583 <<==== Working Example
-	drwxr-xr-x. 3 vuser vboxusers 4096 Apr 26 07:18 i2c2_sc16is740
+	drwxr-xr-x. 3 vuser vboxusers 4096 Apr 26 07:18 i2c2_sc16is740 <<==== Working Example
 	drwxr-xr-x. 2 vuser vboxusers 4096 Apr 26 12:26 Images
 	-rw-r--r--. 1 vuser vboxusers 1320 Apr  8 10:41 KERNEL.md
 	-rw-r--r--. 1 vuser vboxusers 2153 Apr 26 11:57 README.md
@@ -40,6 +40,8 @@ The major overlay examples could be found in the following folder/directory:
 Working CLICK examples so far:
 
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) i2c2_pcf8583 <<==== Working Example
+
+![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) i2c2_sc16is740 <<=== Working Example
 
 ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) spi0_enc28j60 <<=== Working Example
 

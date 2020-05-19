@@ -25,9 +25,9 @@ https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black_BSP-Integration/bl
 All the rest described here (applicable parts):
 https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black_BSP-Integration/tree/master/BBB-debian_buster/overlay_examples/spi0_enc28j60
 
-### Issues, which were solved before getting /dev/ttySC0 (wuth the unselfish help of Robert C Nelson)
+### Issues, which were solved before getting /dev/ttySC0 (with the unselfish help of Robert C. Nelson)
 
-#### SC16IS7xx Driver Problem
+#### SC16IS7xx Driver Problems
 https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/drivers/tty/serial/sc16is7xx.c?h=v5.7-rc5
 
 The problem in details is described here:
