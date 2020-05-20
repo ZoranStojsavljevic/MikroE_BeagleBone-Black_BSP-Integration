@@ -67,6 +67,7 @@ index 7d3ae31cc720..06e8071d5601 100644
 static unsigned long sc16is7xx_lines;
 ```
 #### SERIAL_DEV_CRTL_TTYPORT config option
+https://cateee.net/lkddb/web-lkddb/SERIAL_DEV_CTRL_TTYPORT.html
 
 Just disabling CONFIG_SERIAL_DEV_CTRL_TTYPORT gives a working /dev/ttySC0
 

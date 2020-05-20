@@ -1,4 +1,4 @@
-## PRELIMINARY RELEASE (UNDER THE DEVELOPMENT/CONSTRUCTION)
+## MASTER README.md - Overlay Examples
 
 The BBB board Revision used is REV. A (0x0A5C).
 
