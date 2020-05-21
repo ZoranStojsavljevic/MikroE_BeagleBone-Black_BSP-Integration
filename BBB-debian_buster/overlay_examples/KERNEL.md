@@ -12,7 +12,7 @@ functionality for the most MikroE CLICK boards:
 
 These requirements are calling for the customized kernel, which does NOT come out of the box!
 
-### Changing current kernel .config (to include DTS overlay as part of the kernel)
+### Enabling OF_OVERLAY DTS overlay config option
 
 In the most common case used (to added kernel device driver having its own DTS representation),
 DTS overlay is used. The kernel DTS overlay representation is the following:
@@ -30,3 +30,20 @@ They will appear as the following CONFIG options in the .config :
 
 	CONFIG_OF_OVERLAY=y
 	# CONFIG_OVERLAY_FS is not set
+
+### Disabling SERIAL_DEV_CRTL_TTYPORT config option
+https://cateee.net/lkddb/web-lkddb/SERIAL_DEV_CTRL_TTYPORT.html
+
+Just disabling CONFIG_SERIAL_DEV_CTRL_TTYPORT gives a working /dev/ttySC0
+
+	  │ Symbol: SERIAL_DEV_CTRL_TTYPORT [=n]
+	  │ Type  : bool
+	  │ Prompt: Serial device TTY port controller
+	  │   Location:
+	  │     -> Device Drivers
+	  │       -> Character devices
+	  │ (1)     -> Serial device bus (SERIAL_DEV_BUS [=y])
+	  │   Defined at drivers/tty/serdev/Kconfig:14
+	  │   Depends on: TTY [=y] && SERIAL_DEV_BUS [=y]=y
+
+This (appears to be generic TTY driver) option is under investigation.

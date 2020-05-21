@@ -21,7 +21,7 @@ https://elinux.org/Beagleboard:BeagleBoneBlack
 
 https://raw.githubusercontent.com/beagleboard/beaglebone-black/master/BBB_SCH.pdf
 
-Schematic also could be found in local dir: Docs/BBB_SCH.pdf
+Schematic also could be found in local dir: ../Docs/BBB_SCH.pdf
 
 ###  MikroE MikroBus
 
