@@ -1,8 +1,8 @@
 ## Docs: http://elinux.org/Beagleboard:U-boot_partitioning_layout_2.0
 
 ## uname_r=4.19.106-bone49
-## uname_r=4.14.172-bone33
-uname_r=5.4.24-bone20
+## uname_r=5.4.24-bone20
+uname_r=5.7.0-rc6-bone5
 #uuid=
 #dtb=
 
@@ -23,13 +23,11 @@ enable_uboot_overlays=1
 ### uboot_overlay_addr1=/lib/firmware/BB-I2C2-00A0.dtbo
 ### uboot_overlay_addr2=/lib/firmware/BB-SC16IS740-00A0.dtbo
 ### uboot_overlay_addr1=/lib/firmware/BB-I2C2-SC16IS740-00A0.dtbo
-### uboot_overlay_addr2=/lib/firmware/PB-I2C2-RTC-CLICK.dtbo
-### uboot_overlay_addr1=/lib/firmware/BB-SPI0-SC16IS740-00A0.dtbo
+### uboot_overlay_addr2=/lib/firmware/BB-I2C2-RTC-CLICK.dtbo
+uboot_overlay_addr1=/lib/firmware/BB-SPI0-SC16IS740-00A0.dtbo
 ### uboot_overlay_addr1=/lib/firmware/BB-SPIDEV0-00A0.dtbo
-### uboot_overlay_addr1=/lib/firmware/PB-SPI0-ETH-CLICK-00A0.dtbo
-### uboot_overlay_addr1=/lib/firmware/PB-SPI0-SC16IS740-00A0.dtbo
-### uboot_overlay_addr1=/lib/firmware/PB-I2C2-RTC-PCF8523-00A0.dtbo
-### uboot_overlay_addr1=/lib/firmware/PB-SC16IS740-TTYSC0-00A0.dtbo
+### uboot_overlay_addr1=/lib/firmware/BB-SPI0-ETH-CLICK-00A0.dtbo
+### uboot_overlay_addr1=/lib/firmware/BB-I2C2-PCF8523-00A0.dts
 ### uboot_overlay_addr1=/lib/firmware/BB-mBC3-ETH-CLICK.dtbo
 ### uboot_overlay_addr1=/lib/firmware/BB-mBC3-ETH-CLICK-00A0.dtbo
 
@@ -87,7 +85,16 @@ disable_uboot_overlay_adc=1
 #uboot_fdt_buffer=0x60000
 ###U-Boot Overlays###
 
+### cmdline addendum: console=device,options ==>> console=ttySC0,115200n8
+
+### cmdline coherent_pool=1M option:
+### google's coherent_pool... Maybe dma? Some usb wifi device said something like "ERROR:
+### 256 KiB atomic DMA coherent pool is too small!" so we just bumped it to 1Mb by default.
+### https://github.com/beagleboard/image-builder/commit/3110337acd88ae71a666c8b50747c9ddff5fcdaa
+
 cmdline=coherent_pool=1M net.ifnames=0 rng_core.default_quality=100 quiet
+
+### cmdline=console=ttySC0,115200n8 coherent_pool=1M net.ifnames=0 rng_core.default_quality=100 quiet
 
 #In the event of edid real failures, uncomment this next line:
 #cmdline=coherent_pool=1M net.ifnames=0 rng_core.default_quality=100 quiet video=HDMI-A-1:1024x768@60e

@@ -1,3 +1,7 @@
+### Some MikroE Clicks with Linux Support
+
+https://elinux.org/MikroEClicks_with_Linux_Support
+
 ### BBB MikroBus CAPE4
 
 Manual for the MikroBus Cape4 is located here:
@@ -18,5 +22,9 @@ Please, do note that position of MikroBuses are dependant of which SPIX is actua
 
 ### To Be Done
 
-[1] MikroBus kernel.org Kernel Driver to be developed, still in the initial discussion!
-[2] CAPE4 DTS overlay (if ?) yet to be developed. This task is of low priority!
+[1] MikroBus kernel.org Kernel Driver (Grey Driver) to be developed, still in the initial discussion!
+[2] [1] assumes that MikroBus Cape4 flash device contains all overlays (300+) in the form of one additional binary tree...
+[3] CAPE4 DTS overlay (if ?) yet to be developed. This task is of low priority!
+
+[1] and [2] are captured here:
+https://github.com/vaishnav98/mikrobus

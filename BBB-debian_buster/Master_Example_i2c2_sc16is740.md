@@ -2,18 +2,19 @@
 
 The BBB board Revision used is REV. A (0x0A5C).
 
-The reason for that is the following:
-
-https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black_BSP-Integration/blob/master/BBB-debian_buster/overlay_examples/README.md
-
-### People are highly encouraged to use overlays in .../BBB-debian_buster/overlay_examples/
-
 ### Explored Embedded HW Configuration:
-
-MikroBus used is MikroBus 1.
+https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/BBB-debian_buster/overlay_examples/i2c2_sc16is740/MIKROE-3349/READM>
 
 ![](../MikroE_BBB_CLICK_Design/Images/beaglebone-mikrobus-cape.jpg)
 ![](../MikroE_BBB_CLICK_Design/Images/beaglebone-mikrobus-cape-SC16IS740.jpg)
+
+MikroBus used is MikroBus 1 on MikroBus Cape4 HW extension.
+
+### Installing arm cross compiler on the Debian Buster host
+
+To install on Debian Buster host, the following command is used:
+
+	$ sudo apt-get install gcc-arm-linux-gnueabihf
 
 ### U-boot 04.2019 Overlays
 
@@ -55,6 +56,13 @@ Configure and Build:
 	make ARCH=arm CROSS_COMPILE=${CC} am335x_evm_defconfig
 	make ARCH=arm CROSS_COMPILE=${CC}
 
+	Debian:
+	ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make -j8 menuconfig
+
+	Optional for Fedora:
+	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8 menuconfig
+	ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make -j8 menuconfig (if Linaro cross GCC compiler installed)
+
 #### Optional Reading
 
 U-Boot Overlays:
@@ -64,6 +72,39 @@ https://elinux.org/Beagleboard:BeagleBoneBlack_Debian#U-Boot_Overlays
 BeagleBone uboot transplantation:
 
 http://www.programmersought.com/article/19361176463/
+
+### Setup microSD card
+
+Erase partition table/labels on microSD card:
+
+	$ sudo dd if=/dev/zero of=${DISK} bs=1M count=10
+
+For the BBB board case, two files are generated: MLO and u-boot.img .
+
+In order to flash the SD card!
+
+MLO should reside at offset 1024KB (1MB) of the SD card. To place it there (assuming ${DISK} is /dev/sdX):
+
+	Flash the MLO image into the SD card:
+	$ sudo dd if=./u-boot/MLO of=${DISK} bs=128k count=1 seek=1; sync
+
+	Flash the u-boot.img image into the SD card:
+	$ sudo dd if=./u-boot/u-boot.img of=${DISK} bs=384k count=2 seek=1; sync
+
+Similar:
+
+Install Bootloader:
+
+	$ sudo dd if=./u-boot/MLO of=${DISK} count=1 seek=1 bs=128k
+	$ sudo dd if=./u-boot/u-boot.img of=${DISK} count=2 seek=1 bs=384k
+
+Create User / partition for the Debian Buster:
+
+	$ echo "Create primary partition 1 for rootfs"
+	$ sudo echo -e "n\np\n1\n\n+16384M\nw\n" | fdisk /dev/sdb
+
+	$ echo "Formatting primary partition sdb1 for rootfs"
+	$ sudo mkfs.ext4 -F /dev/sdb1
 
 ### Supported Linux Kernels out of the box:
 
@@ -121,15 +162,126 @@ Execute the following to build the custom menuconfig:
 	host$ git checkout am33x-v4.19
 	host$ ./build_kernel.sh
 
+### Common BeagleBone Black Linux kernel requirements
+
 Here are the custom changes for menuconfig, to be done in order to have proper kernel for the example:
 
 https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/BBB-debian_buster/overlay_examples/KERNEL.md
 
-https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/BBB-debian_buster/overlay_examples/i2c2_sc16is740/MIKROE-3349/README.md
+Please, do note that the customized kernel must be built in order to achieve the desired
+functionality for the most MikroE CLICK boards:
+
+	[1] The standard defconfig .config  will change in order to include CLICK silicon
+	    driver options
+	[2] In most the cases the Device Tree Source (DTS) device fragment either will be:
+		[A] Included with the standard  .../arch/arm/boot/dts/am335x-boneblack.dts
+		[B] Needs to be imported to the .../arch/arm/boot/dts/am335x-boneblack.dts
+		[C] Needs to be included as DTS overlay
+
+These requirements are calling for the customized kernel, which does NOT come out of the box!
+
+#### Enabling OF_OVERLAY DTS overlay .config option
+
+In the most common case used (to added kernel device driver having its own DTS representation),
+DTS overlay is used. The kernel DTS overlay representation is the following:
+
+	  │ Symbol: OF_OVERLAY [=y]
+	  │ Type  : bool
+	  │ Prompt: Device Tree overlays
+	  │   Location:
+	  │     -> Device Drivers
+	  │ (2)   -> Device Tree and Open Firmware support (OF [=y])
+	  │   Defined at drivers/of/Kconfig:92
+	  │   Depends on: OF [=y]
+
+They will appear as the following CONFIG options in the .config :
+
+	CONFIG_OF_OVERLAY=y
+	# CONFIG_OVERLAY_FS is not set
+
+#### Disabling SERIAL_DEV_CRTL_TTYPORT .config option
+https://cateee.net/lkddb/web-lkddb/SERIAL_DEV_CTRL_TTYPORT.html
+
+Just disabling CONFIG_SERIAL_DEV_CTRL_TTYPORT gives a working /dev/ttySC0
+
+	  │ Symbol: SERIAL_DEV_CTRL_TTYPORT [=n]
+	  │ Type  : bool
+	  │ Prompt: Serial device TTY port controller
+	  │   Location:
+	  │     -> Device Drivers
+	  │       -> Character devices
+	  │ (1)     -> Serial device bus (SERIAL_DEV_BUS [=y])
+	  │   Defined at drivers/tty/serdev/Kconfig:14
+	  │   Depends on: TTY [=y] && SERIAL_DEV_BUS [=y]=y
+
+This (appears to be generic TTY driver) option is under investigation.
+
+### Adding SC16IS7xx driver to the .config - Adding kernel .config fragments
+
+These requirements call for the customized kernel, which does NOT come out of the box!
+
+The DTS method used in this example is DTS overlay.
+
+Please, execute the following command in the root tree source of the currently used BBB Linux kernel:
+
+Change kernel .config (original defconfig used to build .config is omap2plus_defconfig):
+
+	Debian:
+	ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make -j8 menuconfig
+
+	Optional for Fedora:
+	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8 menuconfig
+	ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make -j8 menuconfig (if Linaro cross GCC compiler installed)
+
+Please, find the following options and add them to be included in the kernel:
+
+	  │ Symbol: SERIAL_SC16IS7XX [=y]
+	  │ Type  : tristate
+	  │ Prompt: SC16IS7xx serial support
+	  │   Location:
+	  │     -> Device Drivers
+	  │       -> Character devices
+	  │ (1)     -> Serial drivers
+	  │   Defined at drivers/tty/serial/Kconfig:1083
+	  │   Depends on: TTY [=y] && HAS_IOMEM [=y] && (SPI_MASTER [=y] && !I2C [=y] || I2C [=y])
+	  │   Selects: SERIAL_CORE [=y]
+	  │
+	  │
+	  │ Symbol: SERIAL_SC16IS7XX_CORE [=y]
+	  │ Type  : tristate
+	  │   Defined at drivers/tty/serial/Kconfig:1080
+	  │   Depends on: TTY [=y] && HAS_IOMEM [=y]
+	  │   Selected by [y]:
+	  │   - SERIAL_SC16IS7XX_I2C [=y] && TTY [=y] && HAS_IOMEM [=y] && I2C [=y] && SERIAL_SC16IS7XX [=y]
+	  │   - SERIAL_SC16IS7XX_SPI [=y] && TTY [=y] && HAS_IOMEM [=y] && SPI_MASTER [=y] && SERIAL_SC16IS7XX [=y]
+	  │
+	  │
+	  │ Symbol: SERIAL_SC16IS7XX_I2C [=y]
+	  │ Type  : bool
+	  │ Prompt: SC16IS7xx for I2C interface
+	  │   Location:
+	  │     -> Device Drivers
+
+They will appear as the following CONFIG options in the .config :
+
+	CONFIG_SERIAL_SC16IS7XX_CORE=y
+	CONFIG_SERIAL_SC16IS7XX=y
+	CONFIG_SERIAL_SC16IS7XX_I2C=y
+	CONFIG_SERIAL_SC16IS7XX_SPI=y
 
 ### U-Boot Generic uEnv.txt file used (example overlays commented out by default)
 
 https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/BBB-debian_buster/overlay_examples/uEnv.txt
+
+### Debian Root File System
+
+	Debian Buster user: debian, passwd: temppwd
+	Debian Buster root: root, passwd: root
+
+Download Debian Root File System:
+
+	$ wget -c https://rcn-ee.com/rootfs/eewiki/minfs/debian-10.4-minimal-armhf-2020-05-10.tar.xz
+	$ tar -xvf debian-10.4-minimal-armhf-2020-05-10.tar.xz
 
 ### BBB P9 header I2C2 Overlay (BB-I2C2-SC16IS740-00A0.dts)
 ```

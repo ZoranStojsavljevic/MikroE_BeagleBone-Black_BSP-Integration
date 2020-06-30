@@ -131,6 +131,59 @@ https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/bl
 
 https://github.com/ZoranStojsavljevic/MikroE_BeagleBone-Black-BSP_Integration/blob/master/BBB-debian_buster/overlay_examples/uEnv.txt
 
+### Adding SC16IS7xx driver to the .config - Adding kernel .config fragments
+
+These requirements call for the customized kernel, which does NOT come out of the box!
+
+The DTS method used in this example is DTS overlay.
+
+Please, execute the following command in the root tree source of the currently used BBB Linux kernel:
+
+Change kernel .config (original defconfig used to build .config is omap2plus_defconfig):
+
+	Debian:
+	ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make -j8 menuconfig
+
+	Optional for Fedora:
+	ARCH=arm CROSS_COMPILE=arm-linux-gnu- make -j8 menuconfig
+	ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make -j8 menuconfig (if Linaro cross GCC compiler installed)
+
+Please, find the following options and add them to be included in the kernel:
+
+	  │ Symbol: SERIAL_SC16IS7XX [=y]
+	  │ Type  : tristate
+	  │ Prompt: SC16IS7xx serial support
+	  │   Location:
+	  │     -> Device Drivers
+	  │       -> Character devices
+	  │ (1)     -> Serial drivers
+	  │   Defined at drivers/tty/serial/Kconfig:1083
+	  │   Depends on: TTY [=y] && HAS_IOMEM [=y] && (SPI_MASTER [=y] && !I2C [=y] || I2C [=y])
+	  │   Selects: SERIAL_CORE [=y]
+	  │
+	  │
+	  │ Symbol: SERIAL_SC16IS7XX_CORE [=y]
+	  │ Type  : tristate
+	  │   Defined at drivers/tty/serial/Kconfig:1080
+	  │   Depends on: TTY [=y] && HAS_IOMEM [=y]
+	  │   Selected by [y]:
+	  │   - SERIAL_SC16IS7XX_I2C [=y] && TTY [=y] && HAS_IOMEM [=y] && I2C [=y] && SERIAL_SC16IS7XX [=y]
+	  │   - SERIAL_SC16IS7XX_SPI [=y] && TTY [=y] && HAS_IOMEM [=y] && SPI_MASTER [=y] && SERIAL_SC16IS7XX [=y]
+	  │
+	  │
+	  │ Symbol: SERIAL_SC16IS7XX_I2C [=y]
+	  │ Type  : bool
+	  │ Prompt: SC16IS7xx for I2C interface
+	  │   Location:
+	  │     -> Device Drivers
+
+They will appear as the following CONFIG options in the .config :
+
+	CONFIG_SERIAL_SC16IS7XX_CORE=y
+	CONFIG_SERIAL_SC16IS7XX=y
+	CONFIG_SERIAL_SC16IS7XX_I2C=y
+	CONFIG_SERIAL_SC16IS7XX_SPI=y
+
 ### BBB P9 header I2C2 Overlay (BB-I2C2-SC16IS740-00A0.dts)
 ```
 $ cat BB-I2C2-SC16IS740-00A0.dts
